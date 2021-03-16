@@ -1,0 +1,28 @@
+spring:
+
+# JPA 설정
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+# DB 설정
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:test_db
+    driver-class-name: org.h2.Driver
+    username: sa
+# h2 설정    
+  h2:
+    console:
+      enabled: true  # H2 웹 콘솔을 사용하겠다는 의미
+
+# Logging 설정
+logging:
+  level:
+    root: info
+    com:
+      mhkim:
+        tms: debug
+
