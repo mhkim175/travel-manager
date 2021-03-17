@@ -27,14 +27,18 @@ public class BoardService {
     }
 
     @Transactional
-    public Optional<Board> addBoard(Board param) {
-        return Optional.of(boardRepository.save(param));
+    public Optional<Board> addBoard(String userName, String title, String content) {
+        Board board = Board.builder()
+                .userName(userName)
+                .title(title)
+                .content(content).build();
+        return Optional.of(boardRepository.save(board));
     }
     
     @Transactional
-    public Optional<Board> editBoard(Long boardId, Board param) {
+    public Optional<Board> updateBoard(Long boardId, String title, String content) {
         return getBoard(boardId).map(board -> {
-            board.setServerUpdate(param.getTitle(), param.getContent());
+            board.setBoardUpdate(title, content);
             return boardRepository.save(board);
         });
     }

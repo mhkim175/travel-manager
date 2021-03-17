@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mhkim.tms.board.controller.dto.BoardAddDto;
 import com.mhkim.tms.board.controller.dto.BoardDto;
-import com.mhkim.tms.board.controller.dto.BoardEditDto;
+import com.mhkim.tms.board.controller.dto.BoardUpdateDto;
 import com.mhkim.tms.board.service.BoardService;
 import com.mhkim.tms.common.ApiResult;
 
@@ -45,7 +45,7 @@ public class BoardController {
     }
 
     @ApiOperation(value = "게시글 조회", notes = "게시글을 조회한다.")
-    @GetMapping(value = "/{seq}")
+    @GetMapping(value = "/{boardId}")
     public ApiResult<BoardDto> getBoard(@PathVariable("boardId") Long boardId) throws Exception {
         return ok(boardService.getBoard(boardId)
                 .map(BoardDto::new)
@@ -55,23 +55,22 @@ public class BoardController {
     @ApiOperation(value = "게시글 추가", notes = "게시글을 추가한다")
     @PostMapping(value = "/add")
     public ApiResult<BoardDto> addBoard(@RequestBody @Valid BoardAddDto param) throws Exception {
-        return ok(boardService.addBoard(param.toEntity())
+        return ok(boardService.addBoard(param.getUserName(), param.getTitle(), param.getContent())
                 .map(BoardDto::new)
                 .orElseThrow(Exception::new), HttpStatus.OK);
     }
 
     @ApiOperation(value = "게시글 수정", notes = "게시글을 수정한다.")
-    @PutMapping(value = "/{seq}")
-    public ApiResult<BoardDto> edit(@PathVariable("boardId") Long boardId, @RequestBody @Valid BoardEditDto param)
-            throws Exception {
-        return ok(boardService.editBoard(boardId, param.toEntity())
+    @PutMapping(value = "/{boardId}")
+    public ApiResult<BoardDto> updateBoard(@PathVariable("boardId") Long boardId, @RequestBody @Valid BoardUpdateDto param) throws Exception {
+        return ok(boardService.updateBoard(boardId, param.getTitle(), param.getContent())
                 .map(BoardDto::new)
                 .orElseThrow(Exception::new), HttpStatus.OK);
     }
 
     @ApiOperation(value = "게시글 삭제", notes = "게시글을 삭제한다.")
-    @DeleteMapping(value = "/{seq}")
-    public ApiResult<BoardDto> delete(@PathVariable("boardId") Long boardId) throws Exception {
+    @DeleteMapping(value = "/{boardId}")
+    public ApiResult<BoardDto> deleteBoard(@PathVariable("boardId") Long boardId) throws Exception {
         return ok(boardService.deleteBoard(boardId)
                 .map(BoardDto::new)
                 .orElseThrow(Exception::new), HttpStatus.OK);

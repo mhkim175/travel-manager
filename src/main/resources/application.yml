@@ -25,4 +25,3 @@ logging:
     com:
       mhkim:
         tms: debug
-
