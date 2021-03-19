@@ -44,11 +44,8 @@ public class BoardService {
     }
 
     @Transactional
-    public Optional<Board> deleteBoard(Long boardId) {
-        return getBoard(boardId).map(board -> {
-            boardRepository.deleteById(board.getBoardId());
-            return board;
-        });
+    public void deleteBoard(Long boardId) {
+        boardRepository.deleteById(boardId);
     }
 
 }

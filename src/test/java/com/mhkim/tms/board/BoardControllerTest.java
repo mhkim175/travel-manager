@@ -37,22 +37,7 @@ class BoardControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private BoardRepository boardRepository;
-
-    @Autowired
     private ObjectMapper objectMapper;
-
-    @BeforeAll
-    void setUp(){
-        IntStream.range(1, 10).forEach(i -> {
-            Board board = Board.builder()
-                    .userName("mhkim")
-                    .title("title "+i)
-                    .content("content "+i)
-                    .build();
-            boardRepository.save(board);
-        });
-    }
 
     @Test
     @Order(1)
@@ -97,7 +82,7 @@ class BoardControllerTest {
         param.setTitle("updatedtitle");
         param.setContent("updatedcontent");
 
-        mockMvc.perform(put("/api/board/3")
+        mockMvc.perform(put("/api/board/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(param)))
@@ -108,7 +93,7 @@ class BoardControllerTest {
     @Test
     @Order(5)
     void 게시글_삭제() throws Exception{
-        mockMvc.perform(delete("/api/board/5")
+        mockMvc.perform(delete("/api/board/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk());

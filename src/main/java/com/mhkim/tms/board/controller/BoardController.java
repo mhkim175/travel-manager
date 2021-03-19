@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mhkim.tms.advice.exception.CDataNotFoundException;
 import com.mhkim.tms.board.controller.dto.BoardAddDto;
 import com.mhkim.tms.board.controller.dto.BoardDto;
 import com.mhkim.tms.board.controller.dto.BoardUpdateDto;
@@ -46,34 +47,33 @@ public class BoardController {
 
     @ApiOperation(value = "게시글 조회", notes = "게시글을 조회한다.")
     @GetMapping(value = "/{boardId}")
-    public ApiResult<BoardDto> getBoard(@PathVariable("boardId") Long boardId) throws Exception {
+    public ApiResult<BoardDto> getBoard(@PathVariable("boardId") Long boardId) {
         return ok(boardService.getBoard(boardId)
                 .map(BoardDto::new)
-                .orElseThrow(Exception::new), HttpStatus.OK);
+                .orElseThrow(CDataNotFoundException::new), HttpStatus.OK);
     }
 
     @ApiOperation(value = "게시글 추가", notes = "게시글을 추가한다")
     @PostMapping(value = "/add")
-    public ApiResult<BoardDto> addBoard(@RequestBody @Valid BoardAddDto param) throws Exception {
+    public ApiResult<BoardDto> addBoard(@RequestBody @Valid BoardAddDto param) {
         return ok(boardService.addBoard(param.getUserName(), param.getTitle(), param.getContent())
                 .map(BoardDto::new)
-                .orElseThrow(Exception::new), HttpStatus.OK);
+                .orElseThrow(CDataNotFoundException::new), HttpStatus.OK);
     }
 
     @ApiOperation(value = "게시글 수정", notes = "게시글을 수정한다.")
     @PutMapping(value = "/{boardId}")
-    public ApiResult<BoardDto> updateBoard(@PathVariable("boardId") Long boardId, @RequestBody @Valid BoardUpdateDto param) throws Exception {
+    public ApiResult<BoardDto> updateBoard(@PathVariable("boardId") Long boardId, @RequestBody @Valid BoardUpdateDto param) {
         return ok(boardService.updateBoard(boardId, param.getTitle(), param.getContent())
                 .map(BoardDto::new)
-                .orElseThrow(Exception::new), HttpStatus.OK);
+                .orElseThrow(CDataNotFoundException::new), HttpStatus.OK);
     }
 
     @ApiOperation(value = "게시글 삭제", notes = "게시글을 삭제한다.")
     @DeleteMapping(value = "/{boardId}")
-    public ApiResult<BoardDto> deleteBoard(@PathVariable("boardId") Long boardId) throws Exception {
-        return ok(boardService.deleteBoard(boardId)
-                .map(BoardDto::new)
-                .orElseThrow(Exception::new), HttpStatus.OK);
+    public ApiResult<BoardDto> deleteBoard(@PathVariable("boardId") Long boardId) {
+        boardService.deleteBoard(boardId);
+        return ok(HttpStatus.OK);
     }
 
 }

@@ -82,11 +82,9 @@ public class BoardServiceTest {
     @Test
     @Order(5)
     void 게시글_삭제() {
-        Board deletedBoard = boardService.deleteBoard(1L).orElse(null);
-        assertThat(deletedBoard).isNotNull();
-        Board boardResult = boardService.getBoard(1L).orElse(null);
-        assertThat(boardResult).isNull();
-        log.info("Deleted Board: {}", deletedBoard);
+        Long boardId = 1L;
+        boardService.deleteBoard(boardId);
+        log.info("Deleted Board: BoardId is {}", boardId);
     }
 
 }
