@@ -1,6 +1,4 @@
-package com.mhkim.tms.board.controller.dto;
-
-import javax.validation.constraints.NotEmpty;
+package com.mhkim.tms.v1.board.controller.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -11,11 +9,9 @@ import lombok.Setter;
 public class BoardUpdateDto {
 
     @ApiModelProperty(value = "제목", required = true)
-    @NotEmpty
-    String title;
+    private String title;
 
     @ApiModelProperty(value = "내용", required = true)
-    @NotEmpty
-    String content;
+    private String content;
 
 }

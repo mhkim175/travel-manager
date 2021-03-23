@@ -14,8 +14,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.mhkim.tms.board.domain.Board;
-import com.mhkim.tms.board.service.BoardService;
+import com.mhkim.tms.v1.board.domain.Board;
+import com.mhkim.tms.v1.board.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
 

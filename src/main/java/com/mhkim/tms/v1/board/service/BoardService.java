@@ -1,4 +1,4 @@
-package com.mhkim.tms.board.service;
+package com.mhkim.tms.v1.board.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,9 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.collect.Lists;
-import com.mhkim.tms.board.domain.Board;
-import com.mhkim.tms.board.repository.BoardRepository;
+import com.mhkim.tms.v1.board.domain.Board;
+import com.mhkim.tms.v1.board.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +18,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public List<Board> getBoardList() {
-        return Lists.newArrayList(boardRepository.findAll());
+        return boardRepository.findAll();
     }
     
     public Optional<Board> getBoard(Long boardId) {

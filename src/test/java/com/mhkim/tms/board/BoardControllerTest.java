@@ -7,9 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.stream.IntStream;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -22,10 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mhkim.tms.board.controller.dto.BoardAddDto;
-import com.mhkim.tms.board.controller.dto.BoardUpdateDto;
-import com.mhkim.tms.board.domain.Board;
-import com.mhkim.tms.board.repository.BoardRepository;
+import com.mhkim.tms.v1.board.controller.dto.BoardAddDto;
+import com.mhkim.tms.v1.board.controller.dto.BoardUpdateDto;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -47,7 +42,7 @@ class BoardControllerTest {
         param.setTitle("title");
         param.setContent("content");
         
-        mockMvc.perform(post("/api/board/add")
+        mockMvc.perform(post("/api/v1/board/add")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(param)))
@@ -59,7 +54,7 @@ class BoardControllerTest {
     @Test
     @Order(2)
     void 게시글_전체_조회() throws Exception {
-        mockMvc.perform(get("/api/board/list")
+        mockMvc.perform(get("/api/v1/boards")
             .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andDo(print())
             .andExpect(status().isOk());
@@ -68,7 +63,7 @@ class BoardControllerTest {
     @Test
     @Order(3)
     void 게시글_단건_조회() throws Exception {
-        mockMvc.perform(get("/api/board/1")
+        mockMvc.perform(get("/api/v1/board/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -82,7 +77,7 @@ class BoardControllerTest {
         param.setTitle("updatedtitle");
         param.setContent("updatedcontent");
 
-        mockMvc.perform(put("/api/board/1")
+        mockMvc.perform(put("/api/v1/board/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(param)))
@@ -93,7 +88,7 @@ class BoardControllerTest {
     @Test
     @Order(5)
     void 게시글_삭제() throws Exception{
-        mockMvc.perform(delete("/api/board/1")
+        mockMvc.perform(delete("/api/v1/board/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk());
