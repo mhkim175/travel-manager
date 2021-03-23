@@ -3,10 +3,12 @@ package com.mhkim.tms.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import io.swagger.annotations.ApiOperation;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -17,14 +19,21 @@ public class SwaggerConfiguration {
 
     @Bean
     public Docket swaggerApi() {
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(swaggerInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.mhkim.tms")).paths(PathSelectors.any())
-                .build().useDefaultResponseMessages(false); // 기본으로 세팅되는 200,401,403,404 메시지를 표시 하지 않음
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(swaggerInfo())
+                .select()
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .paths(PathSelectors.any())
+                .build().useDefaultResponseMessages(false);
     }
 
     private ApiInfo swaggerInfo() {
-        return new ApiInfoBuilder().title("Spring API Documentation")
-                .description("REST API Server Sample Documentation").license("test").licenseUrl("").version("1")
+        return new ApiInfoBuilder()
+                .title("Travel Manager API Documentation")
+                .description("Travel Manager API Documentation")
+                .contact(new Contact("Minhyeong Kim", null, "mhkim175@gmail.com"))
+                .license("mhkim")
+                .version("1.0.0")
                 .build();
     }
 

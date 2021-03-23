@@ -1,28 +1,33 @@
 spring:
-
-# JPA 설정
+  application:
+    name: tms
   jpa:
     generate-ddl: true
     show-sql: true
     hibernate:
       ddl-auto: create
-
-# DB 설정
+    open-in-view: true
   datasource:
     platform: h2
-    url: jdbc:h2:mem:test_db
     driver-class-name: org.h2.Driver
+    url: "jdbc:h2:mem:tms;MODE=MYSQL;DB_CLOSE_DELAY=-1"
     username: sa
-# h2 설정    
+    password:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+      pool-name: H2_DB
   h2:
     console:
-      enabled: true  # H2 웹 콘솔을 사용하겠다는 의미
+      enabled: true
+      path: /h2-console
 
-# Logging 설정
+server:
+  port: 8080
+
 logging:
   level:
     root: info
     com:
       mhkim:
         tms: debug
-

@@ -22,6 +22,10 @@ public class ApiResult<T> {
     @ApiModelProperty(value = "API 요청 처리 상태 코드")
     private final int status;
 
+    public static <T> ApiResult<T> ok(HttpStatus status) {
+        return new ApiResult<>(true, null, status.value());
+    }
+    
     public static <T> ApiResult<T> ok(T data, HttpStatus status) {
         return new ApiResult<>(true, data, status.value());
     }

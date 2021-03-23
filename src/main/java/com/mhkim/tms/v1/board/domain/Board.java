@@ -1,9 +1,9 @@
-package com.mhkim.tms.board.domain;
+package com.mhkim.tms.v1.board.domain;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 import static java.time.LocalDateTime.now;
+import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.time.LocalDateTime;
 
@@ -16,9 +16,11 @@ import org.springframework.data.annotation.PersistenceConstructor;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
+@NoArgsConstructor
 @ToString
 @Entity
 @Table(name = "boards")
@@ -37,6 +39,7 @@ public class Board {
     @PersistenceConstructor
     public Board(Long boardId, String userName, String title, String content, LocalDateTime createdAt,
             LocalDateTime modifiedAt) {
+
         checkArgument(isNotEmpty(userName), "username must be provided.");
         checkArgument(isNotEmpty(title), "title must be provided.");
         checkArgument(isNotEmpty(content), "content must be provided.");
@@ -49,7 +52,7 @@ public class Board {
         this.modifiedAt = defaultIfNull(modifiedAt, now());
     }
 
-    public void setServerUpdate(String title, String content) {
+    public void setBoardUpdate(String title, String content) {
         this.title = title;
         this.content = content;
     }
