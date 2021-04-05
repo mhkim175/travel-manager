@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mhkim.tms.v1.board.domain.Board;
+import com.mhkim.tms.v1.board.entity.Board;
 import com.mhkim.tms.v1.board.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ public class BoardService {
     @Transactional
     public Optional<Board> updateBoard(Long boardId, String title, String content) {
         return getBoard(boardId).map(board -> {
-            board.setBoardUpdate(title, content);
+            board.updateBoard(title, content);
             return boardRepository.save(board);
         });
     }

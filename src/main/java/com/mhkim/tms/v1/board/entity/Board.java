@@ -1,4 +1,4 @@
-package com.mhkim.tms.v1.board.domain;
+package com.mhkim.tms.v1.board.entity;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.time.LocalDateTime.now;
@@ -7,8 +7,10 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,22 +25,31 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "boards")
+@Table(name = "board")
 public class Board {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
+
+    @Column(nullable = false, length = 20)
     private String userName;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false, length = 500)
     private String content;
+
+    @Column
     private LocalDateTime createdAt;
+
+    @Column
     private LocalDateTime modifiedAt;
 
     @Builder
     @PersistenceConstructor
-    public Board(Long boardId, String userName, String title, String content, LocalDateTime createdAt,
-            LocalDateTime modifiedAt) {
+    public Board(Long boardId, String userName, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt) {
 
         checkArgument(isNotEmpty(userName), "username must be provided.");
         checkArgument(isNotEmpty(title), "title must be provided.");
@@ -52,7 +63,7 @@ public class Board {
         this.modifiedAt = defaultIfNull(modifiedAt, now());
     }
 
-    public void setBoardUpdate(String title, String content) {
+    public void updateBoard(String title, String content) {
         this.title = title;
         this.content = content;
     }

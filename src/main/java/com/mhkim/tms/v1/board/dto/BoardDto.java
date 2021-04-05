@@ -1,8 +1,8 @@
-package com.mhkim.tms.v1.board.controller.dto;
+package com.mhkim.tms.v1.board.dto;
 
 import org.springframework.beans.BeanUtils;
 
-import com.mhkim.tms.v1.board.domain.Board;
+import com.mhkim.tms.v1.board.entity.Board;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
