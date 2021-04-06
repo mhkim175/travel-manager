@@ -17,8 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.mhkim.tms.auth.oauth.Role;
-import com.mhkim.tms.auth.oauth.SocialType;
+import com.mhkim.tms.security.oauth2.Role;
+import com.mhkim.tms.security.oauth2.SocialType;
 
 import lombok.Builder;
 import lombok.Getter;

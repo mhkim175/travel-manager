@@ -6,8 +6,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import com.mhkim.tms.auth.oauth.COAuth2UserService;
-import com.mhkim.tms.auth.oauth.Role;
+import com.mhkim.tms.security.oauth2.COAuth2UserService;
+import com.mhkim.tms.security.oauth2.Role;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.mhkim.tms.auth.oauth;
+package com.mhkim.tms.security.oauth2;
 
 import java.util.Collections;
 
@@ -18,10 +18,12 @@ import com.mhkim.tms.v1.user.entity.User;
 import com.mhkim.tms.v1.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Custom COAuth2UserService
+ * Custom OAuth2UserService
  */
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class COAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
@@ -37,8 +39,9 @@ public class COAuth2UserService implements OAuth2UserService<OAuth2UserRequest, 
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
         
         OAuthAttributes attributes = OAuthAttributes.of(oAuth2User.getAttributes(), registrationId, userNameAttributeName);
+        log.debug("# attributes: " + attributes.toString());
         
-        User user = updateUser(attributes);
+        User user = saveUser(attributes);
         httpSession.setAttribute("user", new SessionUser(user));
 
         return new DefaultOAuth2User(
@@ -47,7 +50,7 @@ public class COAuth2UserService implements OAuth2UserService<OAuth2UserRequest, 
                 attributes.getNameAttributeKey());
     }
 
-    private User updateUser(OAuthAttributes attributes) {
+    private User saveUser(OAuthAttributes attributes) {
         User user = userRepository.findByEmail(attributes.getEmail())
                 .map(u -> {
                     u.updateUser(attributes.getName());

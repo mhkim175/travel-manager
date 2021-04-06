@@ -1,4 +1,4 @@
-package com.mhkim.tms.auth.oauth;
+package com.mhkim.tms.security.oauth2;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

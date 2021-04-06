@@ -2,8 +2,8 @@ package com.mhkim.tms.v1.user.dto;
 
 import org.springframework.beans.BeanUtils;
 
-import com.mhkim.tms.auth.oauth.Role;
-import com.mhkim.tms.auth.oauth.SocialType;
+import com.mhkim.tms.security.oauth2.Role;
+import com.mhkim.tms.security.oauth2.SocialType;
 import com.mhkim.tms.v1.user.entity.User;
 
 import lombok.Getter;

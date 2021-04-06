@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mhkim.tms.auth.oauth.SocialUser;
+import com.mhkim.tms.security.oauth2.SocialUser;
 import com.mhkim.tms.v1.user.dto.SessionUser;
 
 import lombok.RequiredArgsConstructor;

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.mhkim.tms.auth.oauth.SocialUserArgumentResolver;
+import com.mhkim.tms.security.oauth2.SocialUserArgumentResolver;
 
 import lombok.RequiredArgsConstructor;
 

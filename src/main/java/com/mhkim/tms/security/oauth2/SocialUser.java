@@ -1,4 +1,4 @@
-package com.mhkim.tms.auth.oauth;
+package com.mhkim.tms.security.oauth2;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
