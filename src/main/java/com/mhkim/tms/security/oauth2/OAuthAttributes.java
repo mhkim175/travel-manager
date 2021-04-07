@@ -26,23 +26,19 @@ public class OAuthAttributes {
         this.name = name;
         this.registrationId = registrationId;
         this.nameAttributeKey = nameAttributeKey;
-
     }
 
     public static OAuthAttributes of(Map<String, Object> attributes, String registrationId, String userNameAttributeName) {
-
-        if ("kakao".equals(registrationId)) {
+        if (SocialType.KAKAO.equals(SocialType.of(registrationId))) {
             return ofKakao(attributes, registrationId, userNameAttributeName);
-        } else if ("naver".equals(registrationId)) {
+        } 
+        if (SocialType.NAVER.equals(SocialType.of(registrationId))) {
             return ofNaver(attributes, registrationId);
-        } else {
-            return ofGoogle(attributes, registrationId, userNameAttributeName);
-        }
-        
+        } 
+        return ofDefault(attributes, registrationId, userNameAttributeName);
     }
 
-    private static OAuthAttributes ofGoogle(Map<String, Object> attributes, String registrationId, String userNameAttributeName) {
-
+    private static OAuthAttributes ofDefault(Map<String, Object> attributes, String registrationId, String userNameAttributeName) {
         return OAuthAttributes.builder()
                 .attributes(attributes)
                 .email((String) attributes.get("email"))
@@ -77,7 +73,7 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public User toEntity() {
+    public User toUserEntity() {
         return User.builder().name(name).email(email).socialType(SocialType.of(registrationId)).role(Role.USER).build();
     }
 

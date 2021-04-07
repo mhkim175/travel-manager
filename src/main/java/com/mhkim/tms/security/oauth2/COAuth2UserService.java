@@ -55,7 +55,7 @@ public class COAuth2UserService implements OAuth2UserService<OAuth2UserRequest, 
                 .map(u -> {
                     u.updateUser(attributes.getName());
                     return u;
-                }).orElse(attributes.toEntity());
+                }).orElse(attributes.toUserEntity());
 
         return userRepository.save(user);
     }

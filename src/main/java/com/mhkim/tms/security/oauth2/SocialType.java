@@ -1,5 +1,7 @@
 package com.mhkim.tms.security.oauth2;
 
+import java.util.Arrays;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,13 +16,11 @@ public enum SocialType {
 
     private final String value;
 
-    public static SocialType of(String name) {
-        for (SocialType state : SocialType.values()) {
-            if (state.name().equalsIgnoreCase(name)) {
-                return state;
-            }
-        }
-        return NONE;
+    public static SocialType of(String value) {
+        return Arrays.stream(SocialType.values())
+                .filter(type -> type.value.equals(value))
+                .findAny()
+                .orElse(NONE);
     }
     
 }
