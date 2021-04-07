@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mhkim.tms.advice.exception.CDataNotFoundException;
 import com.mhkim.tms.common.ApiResult;
-import com.mhkim.tms.v1.board.controller.dto.BoardAddDto;
-import com.mhkim.tms.v1.board.controller.dto.BoardDto;
-import com.mhkim.tms.v1.board.controller.dto.BoardUpdateDto;
+import com.mhkim.tms.v1.board.dto.BoardAddDto;
+import com.mhkim.tms.v1.board.dto.BoardDto;
+import com.mhkim.tms.v1.board.dto.BoardUpdateDto;
 import com.mhkim.tms.v1.board.service.BoardService;
 
 import io.swagger.annotations.Api;

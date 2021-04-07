@@ -1,4 +1,4 @@
-package com.mhkim.tms.v1.board.controller.dto;
+package com.mhkim.tms.v1.board.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

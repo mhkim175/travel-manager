@@ -19,8 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mhkim.tms.v1.board.controller.dto.BoardAddDto;
-import com.mhkim.tms.v1.board.controller.dto.BoardUpdateDto;
+import com.mhkim.tms.v1.board.dto.BoardAddDto;
+import com.mhkim.tms.v1.board.dto.BoardUpdateDto;
 
 @SpringBootTest
 @AutoConfigureMockMvc
