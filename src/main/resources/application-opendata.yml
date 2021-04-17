@@ -1,0 +1,5 @@
+opendata:
+  base-url: http://openapi.tago.go.kr/openapi/service
+  service-url: /DmstcFlightNvgInfoService/getFlightOpratInfoList
+  service-key: service-key
+  num-of-rows: 10

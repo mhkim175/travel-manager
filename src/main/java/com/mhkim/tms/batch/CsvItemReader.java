@@ -17,7 +17,7 @@ public class CsvItemReader {
     public FlatFileItemReader<RoomInfoDto> reader() {
 
         FlatFileItemReader<RoomInfoDto> flatFileItemReader = new FlatFileItemReader<>();
-        flatFileItemReader.setResource(new ClassPathResource("/data/roominfo.csv"));
+        flatFileItemReader.setResource(new ClassPathResource("/data/opendata/roominfo.csv"));
         flatFileItemReader.setLinesToSkip(1);
         flatFileItemReader.setEncoding("utf-8");
 

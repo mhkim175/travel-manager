@@ -4,7 +4,7 @@ spring:
     name: tms
     
   profiles:
-    include: oauth2
+    include: oauth2, opendata
   
   session:
     store-type: jdbc

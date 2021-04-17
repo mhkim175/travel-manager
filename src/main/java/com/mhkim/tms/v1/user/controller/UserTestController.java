@@ -28,25 +28,25 @@ public class UserTestController {
             mav.addObject("user", user);
         }
         
-        mav.setViewName("user/test/home");
+        mav.setViewName("test/home");
         return mav;
     }
 
     /**
-     * 로그인 페이지
+     * 게시판 테스트 페이지
      */
-    @GetMapping(value = "/user/test/login")
-    public ModelAndView singin(ModelAndView mav) {
-        mav.setViewName("user/test/login");
-        return mav;
-    }
-
-    /**
-     * 게시판 페이지
-     */
-    @GetMapping(value = "/user/test/board")
+    @GetMapping(value = "/test/board")
     public ModelAndView board(ModelAndView mav) {
-        mav.setViewName("user/test/board");
+        mav.setViewName("test/board");
+        return mav;
+    }
+    
+    /**
+     * 여행정보 테스트 페이지
+     */
+    @GetMapping(value = "/test/travelinfo")
+    public ModelAndView singin(ModelAndView mav) {
+        mav.setViewName("test/travelinfo");
         return mav;
     }
 
