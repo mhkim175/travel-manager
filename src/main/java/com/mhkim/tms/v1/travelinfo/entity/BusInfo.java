@@ -23,30 +23,33 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "flightinfo")
-public class FlightInfo {
+@Table(name = "businfo")
+public class BusInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long flightinfoId;
-
-    @Column(length = 100)
-    private String airlineNm;
+    private Long businfoId;
 
     @Column(length = 30)
-    private String arrAirportNm;
+    private String routeId;
 
-    @Column(length = 14)
-    private String arrPlandTime;
-
-    @Column(length = 30)
-    private String depAirportNm;
+    @Column(length = 10)
+    private String gradeNm;
 
     @Column(length = 14)
     private String depPlandTime;
 
-    @Column(length = 9)
-    private String vihicleId;
+    @Column(length = 14)
+    private String arrPlandTime;
+
+    @Column(length = 100)
+    private String depPlaceNm;
+
+    @Column(length = 100)
+    private String arrPlaceNm;
+
+    @Column(length = 8)
+    private String charge;
 
     @Column
     private LocalDateTime createdAt;
@@ -56,17 +59,17 @@ public class FlightInfo {
 
     @Builder
     @PersistenceConstructor
-    public FlightInfo(Long flightinfoId, String airlineNm, String arrAirportNm, String arrPlandTime,
-            String depAirportNm, String depPlandTime, String vihicleId, LocalDateTime createdAt,
-            LocalDateTime modifiedAt) {
+    public BusInfo(Long businfoId, String routeId, String gradeNm, String depPlandTime, String arrPlandTime,
+            String depPlaceNm, String arrPlaceNm, String charge, LocalDateTime createdAt, LocalDateTime modifiedAt) {
 
-        this.flightinfoId = flightinfoId;
-        this.airlineNm = airlineNm;
-        this.arrAirportNm = arrAirportNm;
-        this.arrAirportNm = arrPlandTime;
-        this.depAirportNm = depAirportNm;
+        this.businfoId = businfoId;
+        this.routeId = routeId;
+        this.gradeNm = gradeNm;
         this.depPlandTime = depPlandTime;
-        this.vihicleId = vihicleId;
+        this.arrPlandTime = arrPlandTime;
+        this.depPlaceNm = depPlaceNm;
+        this.arrPlaceNm = arrPlaceNm;
+        this.charge = charge;
         this.createdAt = defaultIfNull(createdAt, now());
         this.modifiedAt = defaultIfNull(modifiedAt, now());
     }

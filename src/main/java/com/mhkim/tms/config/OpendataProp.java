@@ -15,7 +15,9 @@ import lombok.ToString;
 public class OpendataProp {
 
     private String baseUrl;
-    private String serviceUrl;
+    private String busServiceUrl;
+    private String flightServiceUrl;
+    private String shipServiceUrl;
     private String serviceKey;
     private String numOfRows;
 
