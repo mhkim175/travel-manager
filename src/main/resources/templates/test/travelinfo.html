@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+	    function syncBusInfo() {
+	        $.ajax({
+	            url: "/api/v1/travelinfo/businfo/sync",
+	            type:"POST"
+	        })
+	    }
+	    function syncFlightInfo() {
+            $.ajax({
+                url: "/api/v1/travelinfo/flightinfo/sync",
+                type:"POST"
+            })
+        }
+	    function syncShipInfo() {
+            $.ajax({
+                url: "/api/v1/travelinfo/shipinfo/sync",
+                type:"POST"
+            })
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <button type="button" onclick="syncBusInfo()">고속버스 운항정보 동기화</button>
+    </div>
+    <div>
+        <button type="button" onclick="syncFlightInfo()">항공 운항정보 동기화</button>
+    </div>
+    <div>
+        <button type="button" onclick="syncShipInfo()">선박 운항정보 동기화</button>
+    </div>
+</body>
+</html>

@@ -4,7 +4,7 @@ spring:
     name: tms
     
   profiles:
-    include: oauth2
+    include: oauth2, opendata
   
   session:
     store-type: jdbc
@@ -31,6 +31,10 @@ spring:
     console:
       enabled: true
       path: /h2-console
+      
+  batch:
+    job:
+      enabled: false
       
 server:
   port: 8080

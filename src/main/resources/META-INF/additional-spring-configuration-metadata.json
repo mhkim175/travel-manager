@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "opendata.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'opendata.base-url'"
+  },
+  {
+    "name": "opendata.service-key",
+    "type": "java.lang.String",
+    "description": "A description for 'opendata.service-key'"
+  },
+  {
+    "name": "opendata.num-of-rows",
+    "type": "java.lang.String",
+    "description": "A description for 'opendata.num-of-rows'"
+  },
+  {
+    "name": "opendata.bus-service-url",
+    "type": "java.lang.String",
+    "description": "A description for 'opendata.bus-service-url'"
+  },
+  {
+    "name": "opendata.flight-service-url",
+    "type": "java.lang.String",
+    "description": "A description for 'opendata.flight-service-url'"
+  },
+  {
+    "name": "opendata.ship-service-url",
+    "type": "java.lang.String",
+    "description": "A description for 'opendata.ship-service-url'"
+  }
+]}
