@@ -6,7 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BoardUpdateDto {
+public class QnaAddDto {
+
+    @ApiModelProperty(value = "글쓴이", required = true)
+    private String userName;
 
     @ApiModelProperty(value = "제목", required = true)
     private String title;

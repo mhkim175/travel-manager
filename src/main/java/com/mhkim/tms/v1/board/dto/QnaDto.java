@@ -2,7 +2,7 @@ package com.mhkim.tms.v1.board.dto;
 
 import org.springframework.beans.BeanUtils;
 
-import com.mhkim.tms.v1.board.entity.Board;
+import com.mhkim.tms.v1.board.entity.Qna;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -10,10 +10,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BoardDto {
+public class QnaDto {
 
     @ApiModelProperty(value = "게시글 ID")
-    private Long boardId;
+    private Long qnaId;
 
     @ApiModelProperty(value = "글쓴이")
     private String userName;
@@ -24,7 +24,7 @@ public class BoardDto {
     @ApiModelProperty(value = "내용")
     private String content;
 
-    public BoardDto(Board source) {
+    public QnaDto(Qna source) {
         BeanUtils.copyProperties(source, this);
     }
 

@@ -19,14 +19,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mhkim.tms.v1.board.dto.BoardAddDto;
-import com.mhkim.tms.v1.board.dto.BoardUpdateDto;
+import com.mhkim.tms.v1.board.dto.QnaAddDto;
+import com.mhkim.tms.v1.board.dto.QnaUpdateDto;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class BoardControllerTest {
+class QnaControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,12 +37,12 @@ class BoardControllerTest {
     @Test
     @Order(1)
     void 게시글_등록() throws Exception {
-        BoardAddDto param = new BoardAddDto();
+        QnaAddDto param = new QnaAddDto();
         param.setUserName("addmhkim");
         param.setTitle("title");
         param.setContent("content");
         
-        mockMvc.perform(post("/api/v1/board/add")
+        mockMvc.perform(post("/api/v1/qna/add")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(param)))
@@ -54,7 +54,7 @@ class BoardControllerTest {
     @Test
     @Order(2)
     void 게시글_전체_조회() throws Exception {
-        mockMvc.perform(get("/api/v1/boards")
+        mockMvc.perform(get("/api/v1/qnas")
             .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andDo(print())
             .andExpect(status().isOk());
@@ -63,7 +63,7 @@ class BoardControllerTest {
     @Test
     @Order(3)
     void 게시글_단건_조회() throws Exception {
-        mockMvc.perform(get("/api/v1/board/1")
+        mockMvc.perform(get("/api/v1/qna/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -73,11 +73,11 @@ class BoardControllerTest {
     @Test
     @Order(4)
     void 게시글_수정() throws Exception{
-        BoardUpdateDto param = new BoardUpdateDto();
+        QnaUpdateDto param = new QnaUpdateDto();
         param.setTitle("updatedtitle");
         param.setContent("updatedcontent");
 
-        mockMvc.perform(put("/api/v1/board/1")
+        mockMvc.perform(put("/api/v1/qna/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(param)))
@@ -88,7 +88,7 @@ class BoardControllerTest {
     @Test
     @Order(5)
     void 게시글_삭제() throws Exception{
-        mockMvc.perform(delete("/api/v1/board/1")
+        mockMvc.perform(delete("/api/v1/qna/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk());

@@ -35,9 +35,9 @@ public class UserTestController {
     /**
      * 게시판 테스트 페이지
      */
-    @GetMapping(value = "/test/board")
-    public ModelAndView board(ModelAndView mav) {
-        mav.setViewName("test/board");
+    @GetMapping(value = "/test/qna")
+    public ModelAndView qna(ModelAndView mav) {
+        mav.setViewName("test/qna");
         return mav;
     }
     
@@ -45,7 +45,7 @@ public class UserTestController {
      * 여행정보 테스트 페이지
      */
     @GetMapping(value = "/test/travelinfo")
-    public ModelAndView singin(ModelAndView mav) {
+    public ModelAndView travelinfo(ModelAndView mav) {
         mav.setViewName("test/travelinfo");
         return mav;
     }

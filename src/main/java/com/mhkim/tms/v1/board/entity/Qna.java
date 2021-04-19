@@ -25,12 +25,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "board")
-public class Board {
+@Table(name = "qna")
+public class Qna {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardId;
+    private Long qnaId;
 
     @Column(nullable = false, length = 20)
     private String userName;
@@ -49,13 +49,13 @@ public class Board {
 
     @Builder
     @PersistenceConstructor
-    public Board(Long boardId, String userName, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public Qna(Long qnaId, String userName, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt) {
 
         checkArgument(isNotEmpty(userName), "username must be provided.");
         checkArgument(isNotEmpty(title), "title must be provided.");
         checkArgument(isNotEmpty(content), "content must be provided.");
 
-        this.boardId = boardId;
+        this.qnaId = qnaId;
         this.userName = userName;
         this.title = title;
         this.content = content;
@@ -63,7 +63,7 @@ public class Board {
         this.modifiedAt = defaultIfNull(modifiedAt, now());
     }
 
-    public void updateBoard(String title, String content) {
+    public void updateQna(String title, String content) {
         this.title = title;
         this.content = content;
     }
