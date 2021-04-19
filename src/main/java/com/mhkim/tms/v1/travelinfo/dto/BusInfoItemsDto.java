@@ -8,9 +8,7 @@ import com.google.gson.reflect.TypeToken;
 
 import lombok.Getter;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Getter
 @ToString
 public class BusInfoItemsDto {
@@ -21,7 +19,6 @@ public class BusInfoItemsDto {
     private int totalCount;
 
     public BusInfoItemsDto(String jsonData) {
-        log.debug("# {}", jsonData);
         JsonObject jsonObject = new Gson().fromJson(jsonData, JsonObject.class);
         JsonObject bodyObject = jsonObject.get("response").getAsJsonObject().get("body").getAsJsonObject();
 

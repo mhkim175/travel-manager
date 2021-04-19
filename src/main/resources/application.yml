@@ -32,6 +32,10 @@ spring:
       enabled: true
       path: /h2-console
       
+  batch:
+    job:
+      enabled: false
+      
 server:
   port: 8080
 
