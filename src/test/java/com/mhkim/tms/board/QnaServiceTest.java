@@ -29,7 +29,7 @@ public class QnaServiceTest {
         String content = "content";
         LocalDateTime createdAt = null;
         LocalDateTime modifiedAt = null;
-        qna = new Qna(qnaId, userName, title, content, createdAt, modifiedAt);
+        qna = new Qna(qnaId, userName, title, content);
     }
 
     @Test
