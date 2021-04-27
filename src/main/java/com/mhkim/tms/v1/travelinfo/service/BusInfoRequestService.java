@@ -7,7 +7,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.mhkim.tms.config.OpendataProp;
-import com.mhkim.tms.v1.travelinfo.dto.BusInfoItemsDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.BusInfoItemsDto;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;

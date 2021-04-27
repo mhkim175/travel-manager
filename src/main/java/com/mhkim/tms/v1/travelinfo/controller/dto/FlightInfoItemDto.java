@@ -1,7 +1,6 @@
-package com.mhkim.tms.v1.travelinfo.dto;
+package com.mhkim.tms.v1.travelinfo.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Getter;
 import lombok.ToString;
 

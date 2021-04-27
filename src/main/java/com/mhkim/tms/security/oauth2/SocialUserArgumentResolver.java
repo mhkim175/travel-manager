@@ -1,7 +1,7 @@
 package com.mhkim.tms.security.oauth2;
 
-import javax.servlet.http.HttpSession;
-
+import com.mhkim.tms.v1.user.controller.dto.SessionUser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -9,9 +9,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.mhkim.tms.v1.user.dto.SessionUser;
-
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Component
@@ -29,7 +27,7 @@ public class SocialUserArgumentResolver implements HandlerMethodArgumentResolver
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-            NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         return httpSession.getAttribute("user");
     }
 

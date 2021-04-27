@@ -1,14 +1,12 @@
-package com.mhkim.tms.v1.user.dto;
-
-import java.io.Serializable;
-
-import org.springframework.beans.BeanUtils;
+package com.mhkim.tms.v1.user.controller.dto;
 
 import com.mhkim.tms.v1.user.entity.User;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.BeanUtils;
+
+import java.io.Serializable;
 
 @Getter
 @Setter

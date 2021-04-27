@@ -1,4 +1,4 @@
-package com.mhkim.tms.v1.travelinfo.dto;
+package com.mhkim.tms.v1.travelinfo.controller.dto;
 
 import java.util.List;
 

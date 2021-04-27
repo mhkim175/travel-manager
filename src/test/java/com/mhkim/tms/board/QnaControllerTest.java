@@ -1,26 +1,17 @@
 package com.mhkim.tms.board;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mhkim.tms.v1.board.controller.dto.QnaDto;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mhkim.tms.v1.board.dto.QnaAddDto;
-import com.mhkim.tms.v1.board.dto.QnaUpdateDto;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,11 +28,11 @@ class QnaControllerTest {
     @Test
     @Order(1)
     void 게시글_등록() throws Exception {
-        QnaAddDto param = new QnaAddDto();
+        QnaDto.Add param = new QnaDto.Add();
         param.setUserName("addmhkim");
         param.setTitle("title");
         param.setContent("content");
-        
+
         mockMvc.perform(post("/api/v1/qna/add")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
@@ -50,14 +41,14 @@ class QnaControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
     }
-    
+
     @Test
     @Order(2)
     void 게시글_전체_조회() throws Exception {
         mockMvc.perform(get("/api/v1/qnas")
-            .contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andDo(print())
-            .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -72,8 +63,8 @@ class QnaControllerTest {
 
     @Test
     @Order(4)
-    void 게시글_수정() throws Exception{
-        QnaUpdateDto param = new QnaUpdateDto();
+    void 게시글_수정() throws Exception {
+        QnaDto.Mod param = new QnaDto.Mod();
         param.setTitle("updatedtitle");
         param.setContent("updatedcontent");
 
@@ -87,11 +78,11 @@ class QnaControllerTest {
 
     @Test
     @Order(5)
-    void 게시글_삭제() throws Exception{
+    void 게시글_삭제() throws Exception {
         mockMvc.perform(delete("/api/v1/qna/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-    
+
 }

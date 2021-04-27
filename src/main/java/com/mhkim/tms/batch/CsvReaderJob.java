@@ -1,5 +1,9 @@
 package com.mhkim.tms.batch;
 
+import com.mhkim.tms.v1.travelinfo.controller.dto.RoomInfoItemDto;
+import com.mhkim.tms.v1.travelinfo.entity.RoomInfo;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -8,12 +12,6 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.mhkim.tms.v1.travelinfo.dto.RoomInfoDto;
-import com.mhkim.tms.v1.travelinfo.entity.RoomInfo;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -40,7 +38,7 @@ public class CsvReaderJob {
     public Step csvItemReaderStep(@Value("#{jobParameters[runJobDate]}") String runJobDate) {
         log.info("#RunJob Date: {}", runJobDate);
         return stepBuilderFactory.get("csvReaderJob-csvItemReadWriteStep")
-                .<RoomInfoDto, RoomInfo>chunk(CHUNK_SIZE)
+                .<RoomInfoItemDto, RoomInfo>chunk(CHUNK_SIZE)
                 .reader(csvItemReader.reader())
                 .processor(csvItemProcessor)
                 .writer(csvItemWriter)

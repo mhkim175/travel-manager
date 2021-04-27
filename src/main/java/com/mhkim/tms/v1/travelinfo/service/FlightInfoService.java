@@ -1,17 +1,15 @@
 package com.mhkim.tms.v1.travelinfo.service;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
-import com.mhkim.tms.v1.travelinfo.dto.FlightInfoItemDto;
-import com.mhkim.tms.v1.travelinfo.dto.FlightInfoItemsDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.FlightInfoItemDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.FlightInfoItemsDto;
 import com.mhkim.tms.v1.travelinfo.entity.FlightInfo;
 import com.mhkim.tms.v1.travelinfo.repository.FlightInfoRepository;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -38,10 +36,10 @@ public class FlightInfoService {
             });
 
             flightInfoItems.subscribe(items ->
-                items.getFlightInfoItems().forEach(item -> {
-                    log.debug("item: {}", items.toString());
-                    addFlightInfo(item);
-                })
+                    items.getFlightInfoItems().forEach(item -> {
+                        log.debug("item: {}", items.toString());
+                        addFlightInfo(item);
+                    })
             );
         });
     }
@@ -55,7 +53,7 @@ public class FlightInfoService {
                 .depPlandTime(item.getDepPlandTime())
                 .vihicleId(item.getVihicleId())
                 .build();
-        
+
         return Optional.of(flightInfoRepository.save(flightInfo));
     }
 

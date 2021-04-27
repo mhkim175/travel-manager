@@ -1,13 +1,12 @@
-package com.mhkim.tms.v1.travelinfo.dto;
-
-import java.util.List;
+package com.mhkim.tms.v1.travelinfo.controller.dto;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @ToString

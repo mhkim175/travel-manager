@@ -1,17 +1,15 @@
 package com.mhkim.tms.v1.travelinfo.service;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
-import com.mhkim.tms.v1.travelinfo.dto.ShipInfoItemDto;
-import com.mhkim.tms.v1.travelinfo.dto.ShipInfoItemsDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.ShipInfoItemDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.ShipInfoItemsDto;
 import com.mhkim.tms.v1.travelinfo.entity.ShipInfo;
 import com.mhkim.tms.v1.travelinfo.repository.ShipInfoRepository;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -46,8 +44,8 @@ public class ShipInfoService {
 
     public Optional<ShipInfo> addShipInfo(ShipInfoItemDto item) {
         ShipInfo shipInfo = ShipInfo.builder()
-                .vihicleNm(item.getVihicleNm()).
-                depPlaceNm(item.getDepPlaceNm())
+                .vihicleNm(item.getVihicleNm())
+                .depPlaceNm(item.getDepPlaceNm())
                 .arrPlaceNm(item.getArrPlaceNm())
                 .depPlandTime(item.getDepPlandTime())
                 .arrPlandTime(item.getArrPlandTime())

@@ -1,13 +1,12 @@
-package com.mhkim.tms.v1.travelinfo.dto;
-
-import java.util.List;
+package com.mhkim.tms.v1.travelinfo.controller.dto;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @ToString
@@ -23,7 +22,8 @@ public class FlightInfoItemsDto {
         JsonObject bodyObject = jsonObject.get("response").getAsJsonObject().get("body").getAsJsonObject();
 
         String itemJson = bodyObject.get("items").getAsJsonObject().get("item").toString();
-        this.flightInfoItems = new Gson().fromJson(itemJson, new TypeToken<List<FlightInfoItemDto>>() {}.getType());
+        this.flightInfoItems = new Gson().fromJson(itemJson, new TypeToken<List<FlightInfoItemDto>>() {
+        }.getType());
 
         this.numOfRows = bodyObject.get("numOfRows").getAsInt();
         this.pageNo = bodyObject.get("pageNo").getAsInt();

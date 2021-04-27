@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.mhkim.tms.v1.travelinfo.dto.BusInfoItemDto;
-import com.mhkim.tms.v1.travelinfo.dto.BusInfoItemsDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.BusInfoItemDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.BusInfoItemsDto;
 import com.mhkim.tms.v1.travelinfo.entity.BusInfo;
 import com.mhkim.tms.v1.travelinfo.repository.BusInfoRepository;
 

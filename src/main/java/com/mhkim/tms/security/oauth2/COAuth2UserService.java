@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.mhkim.tms.v1.user.dto.SessionUser;
+import com.mhkim.tms.v1.user.controller.dto.SessionUser;
 import com.mhkim.tms.v1.user.entity.User;
 import com.mhkim.tms.v1.user.repository.UserRepository;
 
