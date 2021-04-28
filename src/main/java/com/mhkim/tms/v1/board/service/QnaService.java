@@ -36,7 +36,7 @@ public class QnaService {
                             .user(user)
                             .build();
                     return qnaRepository.save(qna);
-                }).orElseThrow(CDataNotFoundException::new);
+                }).orElseThrow(() -> new CDataNotFoundException("User not found"));
     }
 
     @Transactional
@@ -45,7 +45,7 @@ public class QnaService {
                 .map(qna -> {
                     qna.updateQna(title, content);
                     return qnaRepository.save(qna);
-                }).orElseThrow(CDataNotFoundException::new);
+                }).orElseThrow(() -> new CDataNotFoundException("Board not found"));
     }
 
     @Transactional
@@ -54,7 +54,7 @@ public class QnaService {
                 .map(qna -> {
                     qnaRepository.deleteById(qna.getQnaId());
                     return qna;
-                }).orElseThrow(CDataNotFoundException::new);
+                }).orElseThrow(() -> new CDataNotFoundException("Board not found"));
     }
 
 }

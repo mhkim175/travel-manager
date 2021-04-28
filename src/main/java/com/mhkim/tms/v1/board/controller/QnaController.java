@@ -39,7 +39,7 @@ public class QnaController {
         return ResponseEntity.ok(
                 qnaService.getQna(qnaId)
                         .map(QnaDto.Response::new)
-                        .orElseThrow(CDataNotFoundException::new)
+                        .orElseThrow(() -> new CDataNotFoundException("Board not found"))
         );
     }
 

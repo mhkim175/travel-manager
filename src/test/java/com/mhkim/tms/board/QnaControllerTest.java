@@ -29,7 +29,6 @@ class QnaControllerTest {
     @Order(1)
     void 게시글_등록() throws Exception {
         QnaDto.Add param = new QnaDto.Add();
-        param.setUserName("addmhkim");
         param.setTitle("title");
         param.setContent("content");
 
