@@ -2,11 +2,11 @@ package com.mhkim.tms.board;
 
 import com.mhkim.tms.v1.board.entity.Qna;
 import com.mhkim.tms.v1.board.service.QnaService;
+import com.mhkim.tms.v1.user.entity.User;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,24 +20,29 @@ public class QnaServiceTest {
     private QnaService qnaService;
 
     private Qna qna;
+    private User user;
 
     @BeforeAll
     void setUp() {
-        Long qnaId = null;
-        String userName = "mhkim";
-        String title = "title";
-        String content = "content";
-        LocalDateTime createdAt = null;
-        LocalDateTime modifiedAt = null;
-        qna = new Qna(qnaId, userName, title, content);
+        user = User.builder()
+                .userId(1L)
+                .email("user1111@test.com")
+                .name("user1111")
+                .build();
+
+        qna = Qna.builder()
+                .qnaId(1L)
+                .title("제목11")
+                .content("내용내용1111")
+                .user(user)
+                .build();
     }
 
     @Test
     @Order(1)
     void 게시글_등록() {
-        Qna qnaResult = qnaService.addQna(qna.getUserName(), qna.getTitle(), qna.getContent());
+        Qna qnaResult = qnaService.addQna(qna.getTitle(), qna.getContent(), qna.getUser().getUserId());
         assertThat(qnaResult).isNotNull();
-        assertThat(qnaResult.getUserName()).isEqualTo(qna.getUserName());
         assertThat(qnaResult.getTitle()).isEqualTo(qna.getTitle());
         assertThat(qnaResult.getContent()).isEqualTo(qna.getContent());
     }

@@ -3,6 +3,7 @@ package com.mhkim.tms.v1.board.service;
 import com.mhkim.tms.advice.exception.CDataNotFoundException;
 import com.mhkim.tms.v1.board.entity.Qna;
 import com.mhkim.tms.v1.board.repository.QnaRepository;
+import com.mhkim.tms.v1.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class QnaService {
 
     private final QnaRepository qnaRepository;
+    private final UserRepository userRepository;
 
     public List<Qna> getQnaList() {
         return qnaRepository.findAll();
@@ -25,12 +27,16 @@ public class QnaService {
     }
 
     @Transactional
-    public Qna addQna(String userName, String title, String content) {
-        Qna qna = Qna.builder()
-                .userName(userName)
-                .title(title)
-                .content(content).build();
-        return qnaRepository.save(qna);
+    public Qna addQna(String title, String content, Long userId) {
+        return userRepository.findById(userId)
+                .map(user -> {
+                    Qna qna = Qna.builder()
+                            .title(title)
+                            .content(content)
+                            .user(user)
+                            .build();
+                    return qnaRepository.save(qna);
+                }).orElseThrow(CDataNotFoundException::new);
     }
 
     @Transactional
