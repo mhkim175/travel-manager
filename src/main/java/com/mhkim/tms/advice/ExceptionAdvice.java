@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionAdvice {
 
     private ResponseEntity<?> response(String errorMessage, HttpStatus status) {
-        return new ResponseEntity<>(new Error(errorMessage), status);
+        return new ResponseEntity<>(errorMessage, status);
     }
 
     @ExceptionHandler(CDataNotFoundException.class)

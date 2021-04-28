@@ -1,17 +1,15 @@
 package com.mhkim.tms.v1.travelinfo.service;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import com.mhkim.tms.v1.travelinfo.controller.dto.BusInfoItemDto;
 import com.mhkim.tms.v1.travelinfo.controller.dto.BusInfoItemsDto;
 import com.mhkim.tms.v1.travelinfo.entity.BusInfo;
 import com.mhkim.tms.v1.travelinfo.repository.BusInfoRepository;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,16 +22,12 @@ public class BusInfoService {
     public void syncBusInfo() {
 
         busInfoRequestService.requestBusInfo(1).subscribe(busInfo -> {
-            log.debug("busInfo: {}", busInfo);
-
             int total = busInfo.getTotalCount();
             int numOfRows = busInfo.getNumOfRows();
             int maxPage = total / numOfRows;
-            if (total % numOfRows > 0)
-                maxPage++;
+            if (total % numOfRows > 0) maxPage++;
 
             Flux<BusInfoItemsDto> busInfoItems = Flux.range(1, maxPage).flatMap(pageNo -> {
-                log.debug("pageNo: {}", pageNo);
                 return busInfoRequestService.requestBusInfo(pageNo);
             });
 

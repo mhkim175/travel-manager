@@ -22,16 +22,12 @@ public class ShipInfoService {
     public void syncShipInfo() {
 
         shipInfoRequestService.requestShipInfo(1).subscribe(shipInfo -> {
-            log.debug("shipInfo: {}", shipInfo);
-
             int total = shipInfo.getTotalCount();
             int numOfRows = shipInfo.getNumOfRows();
             int maxPage = total / numOfRows;
-            if (total % numOfRows > 0)
-                maxPage++;
+            if (total % numOfRows > 0) maxPage++;
 
             Flux<ShipInfoItemsDto> shipInfoItems = Flux.range(1, maxPage).flatMap(pageNo -> {
-                log.debug("pageNo: {}", pageNo);
                 return shipInfoRequestService.requestShipInfo(pageNo);
             });
 

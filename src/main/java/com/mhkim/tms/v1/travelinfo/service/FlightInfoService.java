@@ -22,16 +22,12 @@ public class FlightInfoService {
     public void syncFlightInfo() {
 
         flightInfoRequestService.requestFlightInfo(1).subscribe(flightInfo -> {
-            log.debug("flightInfo: {}", flightInfo);
-
             int total = flightInfo.getTotalCount();
             int numOfRows = flightInfo.getNumOfRows();
             int maxPage = total / numOfRows;
-            if (total % numOfRows > 0)
-                maxPage++;
+            if (total % numOfRows > 0) maxPage++;
 
             Flux<FlightInfoItemsDto> flightInfoItems = Flux.range(1, maxPage).flatMap(pageNo -> {
-                log.debug("pageNo: {}", pageNo);
                 return flightInfoRequestService.requestFlightInfo(pageNo);
             });
 

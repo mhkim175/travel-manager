@@ -8,19 +8,34 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.BeanUtils;
 
-@Getter
-@Setter
-@ToString
 public class UserDto {
 
-    private Long userId;
-    private String email;
-    private String name;
-    private SocialType socialType;
-    private Role role;
+    @Getter
+    @Setter
+    @ToString
+    public static class Response {
 
-    public UserDto(User source) {
-        BeanUtils.copyProperties(source, this);
+        private Long userId;
+        private String email;
+        private String name;
+        private SocialType socialType;
+        private Role role;
+
+        public Response(User source) {
+            BeanUtils.copyProperties(source, this);
+        }
+
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class Info {
+
+        private Long userId;
+        private String email;
+        private String name;
+
     }
 
 }
