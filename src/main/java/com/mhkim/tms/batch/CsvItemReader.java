@@ -1,6 +1,6 @@
 package com.mhkim.tms.batch;
 
-import com.mhkim.tms.v1.travelinfo.controller.dto.RoomInfoItemDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.RoomItemDto;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
@@ -13,21 +13,21 @@ import org.springframework.core.io.ClassPathResource;
 public class CsvItemReader {
 
     @Bean
-    public FlatFileItemReader<RoomInfoItemDto> reader() {
+    public FlatFileItemReader<RoomItemDto> reader() {
 
-        FlatFileItemReader<RoomInfoItemDto> flatFileItemReader = new FlatFileItemReader<>();
+        FlatFileItemReader<RoomItemDto> flatFileItemReader = new FlatFileItemReader<>();
         flatFileItemReader.setResource(new ClassPathResource("/data/opendata/roominfo.csv"));
         flatFileItemReader.setLinesToSkip(1);
         flatFileItemReader.setEncoding("utf-8");
 
-        DefaultLineMapper<RoomInfoItemDto> defaultLineMapper = new DefaultLineMapper<>();
+        DefaultLineMapper<RoomItemDto> defaultLineMapper = new DefaultLineMapper<>();
 
         DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer();
         delimitedLineTokenizer.setNames("name", "count", "checkIn", "checkOut");
         delimitedLineTokenizer.setStrict(false);
 
-        BeanWrapperFieldSetMapper<RoomInfoItemDto> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
-        beanWrapperFieldSetMapper.setTargetType(RoomInfoItemDto.class);
+        BeanWrapperFieldSetMapper<RoomItemDto> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        beanWrapperFieldSetMapper.setTargetType(RoomItemDto.class);
 
         defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
         defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);

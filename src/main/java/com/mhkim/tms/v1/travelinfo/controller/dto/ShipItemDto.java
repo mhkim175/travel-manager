@@ -7,13 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FlightInfoItemDto {
+public class ShipItemDto {
 
-    private String airlineNm;
-    private String arrAirportNm;
-    private String arrPlandTime;
-    private String depAirportNm;
+    private String vihicleNm;
+    private String depPlaceNm;
+    private String arrPlaceNm;
     private String depPlandTime;
-    private String vihicleId;
+    private String arrPlandTime;
+    private String charge;
 
 }

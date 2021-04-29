@@ -10,19 +10,19 @@ import java.util.List;
 
 @Getter
 @ToString
-public class FlightInfoItemsDto {
+public class FlightItemsDto {
 
-    private List<FlightInfoItemDto> flightInfoItems;
+    private List<FlightItemDto> flightItems;
     private int numOfRows;
     private int pageNo;
     private int totalCount;
 
-    public FlightInfoItemsDto(String jsonData) {
+    public FlightItemsDto(String jsonData) {
         JsonObject jsonObject = new Gson().fromJson(jsonData, JsonObject.class);
         JsonObject bodyObject = jsonObject.get("response").getAsJsonObject().get("body").getAsJsonObject();
 
         String itemJson = bodyObject.get("items").getAsJsonObject().get("item").toString();
-        this.flightInfoItems = new Gson().fromJson(itemJson, new TypeToken<List<FlightInfoItemDto>>() {
+        this.flightItems = new Gson().fromJson(itemJson, new TypeToken<List<FlightItemDto>>() {
         }.getType());
 
         this.numOfRows = bodyObject.get("numOfRows").getAsInt();

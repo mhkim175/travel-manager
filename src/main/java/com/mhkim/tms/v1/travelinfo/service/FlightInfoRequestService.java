@@ -1,7 +1,7 @@
 package com.mhkim.tms.v1.travelinfo.service;
 
 import com.mhkim.tms.config.OpendataProp;
-import com.mhkim.tms.v1.travelinfo.controller.dto.FlightInfoItemsDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.FlightItemsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class FlightInfoRequestService {
     private final WebClient tagoWebClient;
     private final OpendataProp opendataProp;
 
-    public Mono<FlightInfoItemsDto> requestFlightInfo(int pageNo) {
+    public Mono<FlightItemsDto> requestFlightInfo(int pageNo) {
         MultiValueMap<String, String> queryParams = getQueryParams(pageNo);
 
         return tagoWebClient.get()
@@ -26,7 +26,7 @@ public class FlightInfoRequestService {
                         .build()
                 )
                 .accept(MediaType.APPLICATION_JSON).retrieve().bodyToMono(String.class)
-                .flatMap(data -> Mono.just(new FlightInfoItemsDto(data)));
+                .flatMap(data -> Mono.just(new FlightItemsDto(data)));
     }
 
     private MultiValueMap<String, String> getQueryParams(int pageNo) {

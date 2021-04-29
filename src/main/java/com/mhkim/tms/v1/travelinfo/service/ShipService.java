@@ -1,9 +1,9 @@
 package com.mhkim.tms.v1.travelinfo.service;
 
-import com.mhkim.tms.v1.travelinfo.controller.dto.ShipInfoItemDto;
-import com.mhkim.tms.v1.travelinfo.controller.dto.ShipInfoItemsDto;
-import com.mhkim.tms.v1.travelinfo.entity.ShipInfo;
-import com.mhkim.tms.v1.travelinfo.repository.ShipInfoRepository;
+import com.mhkim.tms.v1.travelinfo.controller.dto.ShipItemDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.ShipItemsDto;
+import com.mhkim.tms.v1.travelinfo.entity.Ship;
+import com.mhkim.tms.v1.travelinfo.repository.ShipRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,32 +14,32 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ShipInfoService {
+public class ShipService {
 
-    private final ShipInfoRepository shipInfoRepository;
+    private final ShipRepository shipRepository;
     private final ShipInfoRequestService shipInfoRequestService;
 
-    public void syncShipInfo() {
+    public void syncShip() {
 
-        shipInfoRequestService.requestShipInfo(1).subscribe(shipInfo -> {
-            int total = shipInfo.getTotalCount();
-            int numOfRows = shipInfo.getNumOfRows();
+        shipInfoRequestService.requestShipInfo(1).subscribe(ship -> {
+            int total = ship.getTotalCount();
+            int numOfRows = ship.getNumOfRows();
             int maxPage = total / numOfRows;
             if (total % numOfRows > 0) maxPage++;
 
-            Flux<ShipInfoItemsDto> shipInfoItems = Flux.range(1, maxPage).flatMap(pageNo -> {
+            Flux<ShipItemsDto> shipItems = Flux.range(1, maxPage).flatMap(pageNo -> {
                 return shipInfoRequestService.requestShipInfo(pageNo);
             });
 
-            shipInfoItems.subscribe(items -> items.getShipInfoItems().forEach(item -> {
+            shipItems.subscribe(items -> items.getShipItems().forEach(item -> {
                 log.debug("item: {}", items.toString());
-                addShipInfo(item);
+                addShip(item);
             }));
         });
     }
 
-    public Optional<ShipInfo> addShipInfo(ShipInfoItemDto item) {
-        ShipInfo shipInfo = ShipInfo.builder()
+    public Optional<Ship> addShip(ShipItemDto item) {
+        Ship ship = Ship.builder()
                 .vihicleNm(item.getVihicleNm())
                 .depPlaceNm(item.getDepPlaceNm())
                 .arrPlaceNm(item.getArrPlaceNm())
@@ -48,7 +48,7 @@ public class ShipInfoService {
                 .charge(item.getCharge())
                 .build();
 
-        return Optional.of(shipInfoRepository.save(shipInfo));
+        return Optional.of(shipRepository.save(ship));
     }
 
 }

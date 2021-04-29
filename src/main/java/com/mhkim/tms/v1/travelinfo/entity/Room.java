@@ -14,12 +14,12 @@ import javax.persistence.*;
 @ToString
 @DynamicUpdate
 @Entity
-@Table(name = "roominfo")
-public class RoomInfo extends BaseTime {
+@Table(name = "room")
+public class Room extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roominfoId;
+    private Long roomId;
 
     @Column(length = 100)
     private String name;
@@ -34,8 +34,8 @@ public class RoomInfo extends BaseTime {
     private String checkOut;
 
     @Builder
-    public RoomInfo(Long roominfoId, String name, String count, String checkIn, String checkOut) {
-        this.roominfoId = roominfoId;
+    public Room(Long roomId, String name, String count, String checkIn, String checkOut) {
+        this.roomId = roomId;
         this.name = name;
         this.count = count;
         this.checkIn = checkIn;

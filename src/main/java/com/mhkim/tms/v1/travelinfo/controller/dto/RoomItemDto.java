@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RoomInfoItemDto {
+public class RoomItemDto {
 
     private String name;
     private String count;

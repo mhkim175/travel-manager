@@ -1,9 +1,9 @@
 package com.mhkim.tms.v1.travelinfo.service;
 
-import com.mhkim.tms.v1.travelinfo.controller.dto.BusInfoItemDto;
-import com.mhkim.tms.v1.travelinfo.controller.dto.BusInfoItemsDto;
-import com.mhkim.tms.v1.travelinfo.entity.BusInfo;
-import com.mhkim.tms.v1.travelinfo.repository.BusInfoRepository;
+import com.mhkim.tms.v1.travelinfo.controller.dto.BusItemDto;
+import com.mhkim.tms.v1.travelinfo.controller.dto.BusItemsDto;
+import com.mhkim.tms.v1.travelinfo.entity.Bus;
+import com.mhkim.tms.v1.travelinfo.repository.BusRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,32 +14,32 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class BusInfoService {
+public class BusService {
 
-    private final BusInfoRepository busInfoRepository;
+    private final BusRepository busRepository;
     private final BusInfoRequestService busInfoRequestService;
 
-    public void syncBusInfo() {
+    public void syncBus() {
 
-        busInfoRequestService.requestBusInfo(1).subscribe(busInfo -> {
-            int total = busInfo.getTotalCount();
-            int numOfRows = busInfo.getNumOfRows();
+        busInfoRequestService.requestBusInfo(1).subscribe(bus -> {
+            int total = bus.getTotalCount();
+            int numOfRows = bus.getNumOfRows();
             int maxPage = total / numOfRows;
             if (total % numOfRows > 0) maxPage++;
 
-            Flux<BusInfoItemsDto> busInfoItems = Flux.range(1, maxPage).flatMap(pageNo -> {
+            Flux<BusItemsDto> busItems = Flux.range(1, maxPage).flatMap(pageNo -> {
                 return busInfoRequestService.requestBusInfo(pageNo);
             });
 
-            busInfoItems.subscribe(items -> items.getBusInfoItems().forEach(item -> {
+            busItems.subscribe(items -> items.getBusItems().forEach(item -> {
                 log.debug("item: {}", items.toString());
-                addBusInfo(item);
+                addBus(item);
             }));
         });
     }
 
-    public Optional<BusInfo> addBusInfo(BusInfoItemDto item) {
-        BusInfo busInfo = BusInfo.builder()
+    public Optional<Bus> addBus(BusItemDto item) {
+        Bus bus = Bus.builder()
                 .routeId(item.getRouteId())
                 .gradeNm(item.getGradeNm())
                 .depPlandTime(item.getDepPlandTime())
@@ -49,7 +49,7 @@ public class BusInfoService {
                 .charge(item.getCharge())
                 .build();
 
-        return Optional.of(busInfoRepository.save(busInfo));
+        return Optional.of(busRepository.save(bus));
     }
 
 }

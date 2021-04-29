@@ -1,15 +1,13 @@
 package com.mhkim.tms.v1.travelinfo.service;
 
+import com.mhkim.tms.config.OpendataProp;
+import com.mhkim.tms.v1.travelinfo.controller.dto.BusItemsDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import com.mhkim.tms.config.OpendataProp;
-import com.mhkim.tms.v1.travelinfo.controller.dto.BusInfoItemsDto;
-
-import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
@@ -19,7 +17,7 @@ public class BusInfoRequestService {
     private final WebClient tagoWebClient;
     private final OpendataProp opendataProp;
 
-    public Mono<BusInfoItemsDto> requestBusInfo(int pageNo) {
+    public Mono<BusItemsDto> requestBusInfo(int pageNo) {
         MultiValueMap<String, String> queryParams = getQueryParams(pageNo);
 
         return tagoWebClient.get()
@@ -28,7 +26,7 @@ public class BusInfoRequestService {
                         .build()
                 )
                 .accept(MediaType.APPLICATION_JSON).retrieve().bodyToMono(String.class)
-                .flatMap(data -> Mono.just(new BusInfoItemsDto(data)));
+                .flatMap(data -> Mono.just(new BusItemsDto(data)));
     }
 
     private MultiValueMap<String, String> getQueryParams(int pageNo) {

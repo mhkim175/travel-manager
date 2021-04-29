@@ -5,21 +5,21 @@
     <title>login</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-	    function syncBusInfo() {
+	    function syncBus() {
 	        $.ajax({
-	            url: "/api/v1/travelinfo/businfo/sync",
+	            url: "/api/v1/travel/info/bus/sync",
 	            type:"POST"
 	        })
 	    }
-	    function syncFlightInfo() {
+	    function syncFlight() {
             $.ajax({
-                url: "/api/v1/travelinfo/flightinfo/sync",
+                url: "/api/v1/travel/info/flight/sync",
                 type:"POST"
             })
         }
-	    function syncShipInfo() {
+	    function syncShip() {
             $.ajax({
-                url: "/api/v1/travelinfo/shipinfo/sync",
+                url: "/api/v1/travel/info/ship/sync",
                 type:"POST"
             })
         }
@@ -27,13 +27,13 @@
 </head>
 <body>
     <div>
-        <button type="button" onclick="syncBusInfo()">고속버스 운항정보 동기화</button>
+        <button type="button" onclick="syncBus()">고속버스 운항정보 동기화</button>
     </div>
     <div>
-        <button type="button" onclick="syncFlightInfo()">항공 운항정보 동기화</button>
+        <button type="button" onclick="syncFlight()">항공 운항정보 동기화</button>
     </div>
     <div>
-        <button type="button" onclick="syncShipInfo()">선박 운항정보 동기화</button>
+        <button type="button" onclick="syncShip()">선박 운항정보 동기화</button>
     </div>
 </body>
 </html>

@@ -14,12 +14,12 @@ import javax.persistence.*;
 @ToString
 @DynamicUpdate
 @Entity
-@Table(name = "flightinfo")
-public class FlightInfo extends BaseTime {
+@Table(name = "flight")
+public class Flight extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long flightinfoId;
+    private Long flightId;
 
     @Column(length = 100)
     private String airlineNm;
@@ -40,8 +40,8 @@ public class FlightInfo extends BaseTime {
     private String vihicleId;
 
     @Builder
-    public FlightInfo(Long flightinfoId, String airlineNm, String arrAirportNm, String arrPlandTime, String depAirportNm, String depPlandTime, String vihicleId) {
-        this.flightinfoId = flightinfoId;
+    public Flight(Long flightId, String airlineNm, String arrAirportNm, String arrPlandTime, String depAirportNm, String depPlandTime, String vihicleId) {
+        this.flightId = flightId;
         this.airlineNm = airlineNm;
         this.arrAirportNm = arrAirportNm;
         this.arrAirportNm = arrPlandTime;

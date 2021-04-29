@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Configuration;
 
-import com.mhkim.tms.v1.travelinfo.entity.RoomInfo;
-import com.mhkim.tms.v1.travelinfo.service.RoomInfoService;
+import com.mhkim.tms.v1.travelinfo.entity.Room;
+import com.mhkim.tms.v1.travelinfo.service.RoomService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,15 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class CsvItemWriter implements ItemWriter<RoomInfo> {
+public class CsvItemWriter implements ItemWriter<Room> {
 
-    private final RoomInfoService roomInfoService;
+    private final RoomService roomService;
     
     @Override
-    public void write(List<? extends RoomInfo> items) throws Exception {
+    public void write(List<? extends Room> items) throws Exception {
         items.forEach(item -> {
             log.debug("item: {}", item.toString());
-            roomInfoService.addRoomInfo(item);
+            roomService.addRoom(item);
         });
     }
 
