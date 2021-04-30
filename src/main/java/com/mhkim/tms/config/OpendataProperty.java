@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class OpendataProp {
+public class OpendataProperty {
 
     private String baseUrl;
     private String busServiceUrl;

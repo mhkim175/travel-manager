@@ -1,6 +1,6 @@
 package com.mhkim.tms.v1.travelinfo.service;
 
-import com.mhkim.tms.config.OpendataProp;
+import com.mhkim.tms.config.OpendataProperty;
 import com.mhkim.tms.v1.travelinfo.controller.dto.FlightItemsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -15,13 +15,13 @@ import reactor.core.publisher.Mono;
 public class FlightInfoRequestService {
 
     private final WebClient tagoWebClient;
-    private final OpendataProp opendataProp;
+    private final OpendataProperty opendataProperty;
 
     public Mono<FlightItemsDto> requestFlightInfo(int pageNo) {
         MultiValueMap<String, String> queryParams = getQueryParams(pageNo);
 
         return tagoWebClient.get()
-                .uri(uriBuilder -> uriBuilder.path(opendataProp.getFlightServiceUrl())
+                .uri(uriBuilder -> uriBuilder.path(opendataProperty.getFlightServiceUrl())
                         .queryParams(queryParams)
                         .build()
                 )
@@ -32,8 +32,8 @@ public class FlightInfoRequestService {
     private MultiValueMap<String, String> getQueryParams(int pageNo) {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
 
-        queryParams.add("serviceKey", opendataProp.getServiceKey());
-        queryParams.add("numOfRows", opendataProp.getNumOfRows());
+        queryParams.add("serviceKey", opendataProperty.getServiceKey());
+        queryParams.add("numOfRows", opendataProperty.getNumOfRows());
         queryParams.add("pageNo", String.valueOf(pageNo));
         queryParams.add("depAirportId", "NAARKPC");
         queryParams.add("arrAirportId", "NAARKSS");

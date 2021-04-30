@@ -1,14 +1,12 @@
 package com.mhkim.tms.v1.travelinfo.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.mhkim.tms.v1.travelinfo.service.BusService;
 import com.mhkim.tms.v1.travelinfo.service.FlightService;
 import com.mhkim.tms.v1.travelinfo.service.ShipService;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController

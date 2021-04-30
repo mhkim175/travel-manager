@@ -12,8 +12,8 @@ import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
 public class WebClientConfiguration {
 
     @Bean
-    public WebClient tagoWebClient(OpendataProp opendataProp) {
-        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(opendataProp.getBaseUrl());
+    public WebClient tagoWebClient(OpendataProperty opendataProperty) {
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(opendataProperty.getBaseUrl());
         factory.setEncodingMode(EncodingMode.VALUES_ONLY);
 
         return WebClient.builder().uriBuilderFactory(factory)
