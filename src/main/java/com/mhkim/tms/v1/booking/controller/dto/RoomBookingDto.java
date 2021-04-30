@@ -17,13 +17,13 @@ public class RoomBookingDto {
     @ToString
     public static class Request {
 
-        @ApiModelProperty(value = "숙소 예약 아이디", required = true)
+        @ApiModelProperty(value = "숙소 예약 ID", required = true)
         private Long roomBookId;
 
-        @ApiModelProperty(value = "숙소 아이디", required = true)
+        @ApiModelProperty(value = "숙소 ID", required = true)
         private Long roomId;
 
-        @ApiModelProperty(value = "숙소 이용자 아이디", required = true)
+        @ApiModelProperty(value = "예약자 ID", required = true)
         private Long userId;
 
     }
@@ -33,13 +33,13 @@ public class RoomBookingDto {
     @ToString
     public static class Response {
 
-        @ApiModelProperty(value = "숙소 예약 아이디", required = true)
+        @ApiModelProperty(value = "숙소 예약 ID", required = true)
         private String roomBookId;
 
         @ApiModelProperty(value = "숙소 예약 날짜", required = true)
         private String bookDate;
 
-        @ApiModelProperty(value = "숙소 아이디", required = true)
+        @ApiModelProperty(value = "숙소 ID", required = true)
         private Long roomId;
 
         @ApiModelProperty(value = "숙소명")
@@ -48,16 +48,16 @@ public class RoomBookingDto {
         @ApiModelProperty(value = "숙소 체크인")
         private String checkIn;
 
-        @ApiModelProperty(value = "작성자 체크아웃")
+        @ApiModelProperty(value = "숙소 체크아웃")
         private String checkOut;
 
-        @ApiModelProperty(value = "숙소 이용자 아이디", required = true)
+        @ApiModelProperty(value = "예약자 ID", required = true)
         private Long userId;
 
-        @ApiModelProperty(value = "작성자 이메일")
+        @ApiModelProperty(value = "예약자 이메일")
         private String email;
 
-        @ApiModelProperty(value = "작성자명")
+        @ApiModelProperty(value = "예약자명")
         private String name;
 
         public Response(RoomBooking source) {
@@ -83,10 +83,10 @@ public class RoomBookingDto {
         @ApiModelProperty(value = "예약 날짜", notes = "yyyy-MM-dd", example = "2021-01-01")
         private LocalDate bookDate;
 
-        @ApiModelProperty(value = "숙소 아이디", required = true)
+        @ApiModelProperty(value = "숙소 ID", required = true)
         private Long roomId;
 
-        @ApiModelProperty(value = "숙소 이용자 아이디", required = true)
+        @ApiModelProperty(value = "예약자 ID", required = true)
         private Long userId;
 
     }

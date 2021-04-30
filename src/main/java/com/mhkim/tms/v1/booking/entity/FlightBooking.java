@@ -1,7 +1,7 @@
 package com.mhkim.tms.v1.booking.entity;
 
 import com.mhkim.tms.common.BaseTime;
-import com.mhkim.tms.v1.travelinfo.entity.Room;
+import com.mhkim.tms.v1.travelinfo.entity.Flight;
 import com.mhkim.tms.v1.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +11,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -20,12 +19,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @ToString
 @DynamicUpdate
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_book_date_room_id", columnNames = {"book_date", "room_id"})})
-public class RoomBooking extends BaseTime {
+@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_room_id_book_date", columnNames = {"book_date", "room_id"})})
+public class FlightBooking extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roomBookId;
+    private Long flightBookId;
 
     @Column(name = "book_date", nullable = false)
     private LocalDate bookDate;
@@ -36,18 +35,18 @@ public class RoomBooking extends BaseTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
-    private Room room;
+    private Flight flight;
 
     @Builder
-    public RoomBooking(LocalDate bookDate, Long roomBookId, Room room, User user) {
+    public FlightBooking(LocalDate bookDate, Long flightBookId, Flight flight, User user) {
 
-        checkNotNull(bookDate, "bookDate must be provided.");
-        checkNotNull(room, "room must be provided.");
-        checkNotNull(user, "user must be provided.");
+        checkNotNull(bookDate, "BookDate must be provided.");
+        checkNotNull(flight, "Flight must be provided.");
+        checkNotNull(user, "User must be provided.");
 
-        this.roomBookId = roomBookId;
+        this.flightBookId = flightBookId;
         this.bookDate = bookDate;
-        this.room = room;
+        this.flight = flight;
         this.user = user;
     }
 

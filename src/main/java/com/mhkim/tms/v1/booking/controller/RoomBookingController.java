@@ -15,7 +15,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@Api(tags = {"2. Bookinng-Room"})
+@Api(tags = {"2. Booking-Room"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/booking")
