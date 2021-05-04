@@ -3,8 +3,9 @@ package com.mhkim.tms.v1.booking.service;
 import com.mhkim.tms.advice.exception.CDataNotFoundException;
 import com.mhkim.tms.v1.booking.entity.FlightBooking;
 import com.mhkim.tms.v1.booking.repository.FlightBookingRepository;
-import com.mhkim.tms.v1.travelinfo.entity.flight.Flight;
-import com.mhkim.tms.v1.travelinfo.repository.FlightRepository;
+import com.mhkim.tms.v1.travelinfo.entity.flight.FlightSeat;
+import com.mhkim.tms.v1.travelinfo.repository.flight.FlightRepository;
+import com.mhkim.tms.v1.travelinfo.repository.flight.FlightSeatRepository;
 import com.mhkim.tms.v1.user.entity.User;
 import com.mhkim.tms.v1.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.Optional;
 public class FlightBookingService {
 
     private final FlightBookingRepository flightBookingRepository;
-    private final FlightRepository flightRepository;
+    private final FlightSeatRepository flightSeatRepository;
     private final UserRepository userRepository;
 
     public List<FlightBooking> getFlightBookingList() {
@@ -36,16 +37,16 @@ public class FlightBookingService {
     }
 
     @Transactional
-    public FlightBooking bookFlight(LocalDate bookDate, Long flightIdx, Long userIdx) {
-        Flight flight = flightRepository.findById(flightIdx)
-                .orElseThrow(() -> new CDataNotFoundException("Flight not found"));
+    public FlightBooking bookFlight(LocalDate bookDate, Long flightSeatIdx, Long userIdx) {
+        FlightSeat flightSeat = flightSeatRepository.findById(flightSeatIdx)
+                .orElseThrow(() -> new CDataNotFoundException("FlightSeat not found"));
         User user = userRepository.findById(userIdx)
                 .orElseThrow(() -> new CDataNotFoundException("User not found"));
 
         return flightBookingRepository.save(
                 FlightBooking.builder()
                         .bookDate(bookDate)
-                        .flight(flight)
+                        .flightSeat(flightSeat)
                         .user(user)
                         .build()
         );

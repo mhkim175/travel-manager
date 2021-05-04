@@ -2,6 +2,7 @@ package com.mhkim.tms.v1.booking.entity;
 
 import com.mhkim.tms.common.BaseTime;
 import com.mhkim.tms.v1.travelinfo.entity.flight.Flight;
+import com.mhkim.tms.v1.travelinfo.entity.flight.FlightSeat;
 import com.mhkim.tms.v1.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @ToString
 @DynamicUpdate
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_flight_idx_book_date", columnNames = {"flight_idx", "book_date"})})
+@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_flight_seat_idx_book_date", columnNames = {"flight_seat_idx", "book_date"})})
 public class FlightBooking extends BaseTime {
 
     @Id
@@ -27,8 +28,8 @@ public class FlightBooking extends BaseTime {
     private Long flightBookIdx;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "flight_idx")
-    private Flight flight;
+    @JoinColumn(name = "flight_seat_idx")
+    private FlightSeat flightSeat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_idx")
@@ -38,14 +39,14 @@ public class FlightBooking extends BaseTime {
     private LocalDate bookDate;
 
     @Builder
-    public FlightBooking(Long flightBookIdx, Flight flight, User user, LocalDate bookDate) {
+    public FlightBooking(Long flightBookIdx, FlightSeat flightSeat, User user, LocalDate bookDate) {
 
-        checkNotNull(flight, "Flight must be provided.");
+        checkNotNull(flightSeat, "FlightSeat must be provided.");
         checkNotNull(user, "User must be provided.");
         checkNotNull(bookDate, "BookDate must be provided.");
 
         this.flightBookIdx = flightBookIdx;
-        this.flight = flight;
+        this.flightSeat = flightSeat;
         this.user = user;
         this.bookDate = bookDate;
     }

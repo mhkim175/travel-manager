@@ -20,8 +20,8 @@ public class FlightBookingDto {
         @ApiModelProperty(value = "항공편 예약 ID", required = true)
         private Long flightBookIdx;
 
-        @ApiModelProperty(value = "항공편 ID", required = true)
-        private Long flightIdx;
+        @ApiModelProperty(value = "항공편 좌석 ID", required = true)
+        private Long flightSeatIdx;
 
         @ApiModelProperty(value = "예약자 ID", required = true)
         private Long userIdx;
@@ -38,6 +38,9 @@ public class FlightBookingDto {
 
         @ApiModelProperty(value = "항공편 ID", required = true)
         private Long flightIdx;
+
+        @ApiModelProperty(value = "항공편 좌석 ID", required = true)
+        private Long flightSeatIdx;
 
         @ApiModelProperty(value = "항공사명")
         private String airlineNm;
@@ -72,13 +75,14 @@ public class FlightBookingDto {
         public Response(FlightBooking source) {
             BeanUtils.copyProperties(source, this);
 
-            this.flightIdx = source.getFlight().getFlightIdx();
-            this.airlineNm = source.getFlight().getAirlineNm();
-            this.arrAirportNm = source.getFlight().getArrAirportNm();
-            this.arrPlandTime = source.getFlight().getArrPlandTime();
-            this.depAirportNm = source.getFlight().getDepAirportNm();
-            this.depPlandTime = source.getFlight().getDepPlandTime();
-            this.vihicleId = source.getFlight().getVihicleId();
+            this.flightSeatIdx = source.getFlightSeat().getFlightSeatIdx();
+            this.flightIdx = source.getFlightSeat().getFlight().getFlightIdx();
+            this.airlineNm = source.getFlightSeat().getFlight().getAirlineNm();
+            this.arrAirportNm = source.getFlightSeat().getFlight().getArrAirportNm();
+            this.arrPlandTime = source.getFlightSeat().getFlight().getArrPlandTime();
+            this.depAirportNm = source.getFlightSeat().getFlight().getDepAirportNm();
+            this.depPlandTime = source.getFlightSeat().getFlight().getDepPlandTime();
+            this.vihicleId = source.getFlightSeat().getFlight().getVihicleId();
             this.userIdx = source.getUser().getUserIdx();
             this.email = source.getUser().getEmail();
             this.name = source.getUser().getName();
@@ -91,8 +95,8 @@ public class FlightBookingDto {
     @ToString
     public static class Book {
 
-        @ApiModelProperty(value = "항공편 ID", required = true)
-        private Long flightIdx;
+        @ApiModelProperty(value = "항공편 좌석 ID", required = true)
+        private Long flightSeatIdx;
 
         @ApiModelProperty(value = "예약자 ID", required = true)
         private Long userIdx;
