@@ -25,13 +25,13 @@ public class QnaServiceTest {
     @BeforeAll
     void setUp() {
         user = User.builder()
-                .userId(1L)
+                .userIdx(1L)
                 .email("user1111@test.com")
                 .name("user1111")
                 .build();
 
         qna = Qna.builder()
-                .qnaId(1L)
+                .qnaIdx(1L)
                 .title("제목11")
                 .content("내용내용1111")
                 .user(user)
@@ -41,7 +41,7 @@ public class QnaServiceTest {
     @Test
     @Order(1)
     void 게시글_등록() {
-        Qna qnaResult = qnaService.addQna(qna.getTitle(), qna.getContent(), qna.getUser().getUserId());
+        Qna qnaResult = qnaService.addQna(qna.getTitle(), qna.getContent(), qna.getUser().getUserIdx());
         assertThat(qnaResult).isNotNull();
         assertThat(qnaResult.getTitle()).isEqualTo(qna.getTitle());
         assertThat(qnaResult.getContent()).isEqualTo(qna.getContent());
@@ -73,8 +73,8 @@ public class QnaServiceTest {
     @Test
     @Order(5)
     void 게시글_삭제() {
-        Long qnaId = 1L;
-        qnaService.deleteQna(qnaId);
+        Long qnaIdx = 1L;
+        qnaService.deleteQna(qnaIdx);
     }
 
 }

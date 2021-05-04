@@ -34,10 +34,10 @@ public class QnaController {
     }
 
     @ApiOperation(value = "QnA 조회")
-    @GetMapping(value = "/qna/{qnaId}")
-    public ResponseEntity<QnaDto.Response> getQna(@PathVariable("qnaId") Long qnaId) {
+    @GetMapping(value = "/qna/{qnaIdx}")
+    public ResponseEntity<QnaDto.Response> getQna(@PathVariable("qnaIdx") Long qnaIdx) {
         return ResponseEntity.ok(
-                qnaService.getQna(qnaId)
+                qnaService.getQna(qnaIdx)
                         .map(QnaDto.Response::new)
                         .orElseThrow(() -> new CDataNotFoundException("Board not found"))
         );
@@ -46,21 +46,21 @@ public class QnaController {
     @ApiOperation(value = "QnA 추가")
     @PostMapping(value = "/qna/add")
     public ResponseEntity<QnaDto.Response> addQna(@RequestBody QnaDto.Add param) {
-        Qna qna = qnaService.addQna(param.getTitle(), param.getContent(), param.getUserId());
+        Qna qna = qnaService.addQna(param.getTitle(), param.getContent(), param.getUserIdx());
         return new ResponseEntity<>(new QnaDto.Response(qna), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "QnA 수정")
     @PatchMapping(value = "/qna")
     public ResponseEntity<QnaDto.Response> updateQna(@RequestBody QnaDto.Mod param) {
-        Qna qna = qnaService.updateQna(param.getQnaId(), param.getTitle(), param.getContent());
+        Qna qna = qnaService.updateQna(param.getQnaIdx(), param.getTitle(), param.getContent());
         return ResponseEntity.ok(new QnaDto.Response(qna));
     }
 
     @ApiOperation(value = "QnA 삭제")
     @DeleteMapping(value = "/qna")
     public ResponseEntity<QnaDto.Response> deleteQna(@RequestBody QnaDto.Del param) {
-        Qna qna = qnaService.deleteQna(param.getQnaId());
+        Qna qna = qnaService.deleteQna(param.getQnaIdx());
         return ResponseEntity.ok(new QnaDto.Response(qna));
     }
 

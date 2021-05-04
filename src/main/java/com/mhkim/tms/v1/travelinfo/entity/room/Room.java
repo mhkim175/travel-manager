@@ -1,4 +1,4 @@
-package com.mhkim.tms.v1.travelinfo.entity;
+package com.mhkim.tms.v1.travelinfo.entity.room;
 
 import com.mhkim.tms.common.BaseTime;
 import lombok.Builder;
@@ -14,12 +14,11 @@ import javax.persistence.*;
 @ToString
 @DynamicUpdate
 @Entity
-@Table(name = "room")
 public class Room extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roomId;
+    private Long roomIdx;
 
     @Column(length = 100)
     private String name;
@@ -34,8 +33,8 @@ public class Room extends BaseTime {
     private String checkOut;
 
     @Builder
-    public Room(Long roomId, String name, String count, String checkIn, String checkOut) {
-        this.roomId = roomId;
+    public Room(Long roomIdx, String name, String count, String checkIn, String checkOut) {
+        this.roomIdx = roomIdx;
         this.name = name;
         this.count = count;
         this.checkIn = checkIn;

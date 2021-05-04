@@ -1,7 +1,7 @@
 package com.mhkim.tms.batch;
 
 import com.mhkim.tms.v1.travelinfo.controller.dto.RoomItemDto;
-import com.mhkim.tms.v1.travelinfo.entity.Room;
+import com.mhkim.tms.v1.travelinfo.entity.room.Room;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;

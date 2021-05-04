@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.mhkim.tms.v1.travelinfo.entity.Room;
+import com.mhkim.tms.v1.travelinfo.entity.room.Room;
 import com.mhkim.tms.v1.travelinfo.repository.RoomRepository;
 
 import lombok.RequiredArgsConstructor;

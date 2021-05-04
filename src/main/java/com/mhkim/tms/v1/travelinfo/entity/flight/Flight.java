@@ -1,4 +1,4 @@
-package com.mhkim.tms.v1.travelinfo.entity;
+package com.mhkim.tms.v1.travelinfo.entity.flight;
 
 import com.mhkim.tms.common.BaseTime;
 import lombok.Builder;
@@ -14,12 +14,11 @@ import javax.persistence.*;
 @ToString
 @DynamicUpdate
 @Entity
-@Table(name = "flight")
 public class Flight extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long flightId;
+    private Long flightIdx;
 
     @Column(length = 100)
     private String airlineNm;
@@ -40,8 +39,8 @@ public class Flight extends BaseTime {
     private String vihicleId;
 
     @Builder
-    public Flight(Long flightId, String airlineNm, String arrAirportNm, String arrPlandTime, String depAirportNm, String depPlandTime, String vihicleId) {
-        this.flightId = flightId;
+    public Flight(Long flightIdx, String airlineNm, String arrAirportNm, String arrPlandTime, String depAirportNm, String depPlandTime, String vihicleId) {
+        this.flightIdx = flightIdx;
         this.airlineNm = airlineNm;
         this.arrAirportNm = arrAirportNm;
         this.arrAirportNm = arrPlandTime;

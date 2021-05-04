@@ -37,17 +37,17 @@ public class FlightBookingController {
     @GetMapping(value = "/flight")
     public ResponseEntity<List<FlightBookingDto.Response>> getFlightBookingList(@RequestBody FlightBookingDto.Request param) {
         return ResponseEntity.ok(
-                flightBookingService.getFlightBookingByUserId(param.getUserId()).stream()
+                flightBookingService.getFlightBookingByUserId(param.getUserIdx()).stream()
                         .map(FlightBookingDto.Response::new)
                         .collect(toList())
         );
     }
 
     @ApiOperation(value = "항공편 조회")
-    @GetMapping(value = "/flight/{flightBookId}")
-    public ResponseEntity<FlightBookingDto.Response> getFlightBooking(@PathVariable("flightBookId") Long flightBookId) {
+    @GetMapping(value = "/flight/{flightBookIdx}")
+    public ResponseEntity<FlightBookingDto.Response> getFlightBooking(@PathVariable("flightBookIdx") Long flightBookIdx) {
         return ResponseEntity.ok(
-                flightBookingService.getFlightBooking(flightBookId)
+                flightBookingService.getFlightBooking(flightBookIdx)
                         .map(FlightBookingDto.Response::new)
                         .orElseThrow(() -> new CDataNotFoundException("FlightBooking not found"))
         );
@@ -56,14 +56,14 @@ public class FlightBookingController {
     @ApiOperation(value = "항공편 예약")
     @PostMapping(value = "/flight/book")
     public ResponseEntity<FlightBookingDto.Response> bookFlight(@RequestBody FlightBookingDto.Book param) {
-        FlightBooking flightBooking = flightBookingService.bookFlight(param.getBookDate(), param.getFlightId(), param.getUserId());
+        FlightBooking flightBooking = flightBookingService.bookFlight(param.getBookDate(), param.getFlightIdx(), param.getUserIdx());
         return new ResponseEntity<>(new FlightBookingDto.Response(flightBooking), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "항공편 삭제")
     @DeleteMapping(value = "/flight")
     public ResponseEntity<FlightBookingDto.Response> deleteQna(@RequestBody FlightBookingDto.Request param) {
-        FlightBooking flightBooking = flightBookingService.deleteFlightBooking(param.getFlightBookId());
+        FlightBooking flightBooking = flightBookingService.deleteFlightBooking(param.getFlightBookIdx());
         return ResponseEntity.ok(new FlightBookingDto.Response(flightBooking));
     }
 

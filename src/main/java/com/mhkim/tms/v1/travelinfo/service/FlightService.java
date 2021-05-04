@@ -2,7 +2,7 @@ package com.mhkim.tms.v1.travelinfo.service;
 
 import com.mhkim.tms.v1.travelinfo.controller.dto.FlightItemDto;
 import com.mhkim.tms.v1.travelinfo.controller.dto.FlightItemsDto;
-import com.mhkim.tms.v1.travelinfo.entity.Flight;
+import com.mhkim.tms.v1.travelinfo.entity.flight.Flight;
 import com.mhkim.tms.v1.travelinfo.repository.FlightRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

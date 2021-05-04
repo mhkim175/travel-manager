@@ -15,7 +15,7 @@ public class UserDto {
     @ToString
     public static class Response {
 
-        private Long userId;
+        private Long userIdx;
         private String email;
         private String name;
         private SocialType socialType;
@@ -32,7 +32,7 @@ public class UserDto {
     @ToString
     public static class Info {
 
-        private Long userId;
+        private Long userIdx;
         private String email;
         private String name;
 

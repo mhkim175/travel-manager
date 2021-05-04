@@ -1,7 +1,7 @@
 package com.mhkim.tms.v1.booking.entity;
 
 import com.mhkim.tms.common.BaseTime;
-import com.mhkim.tms.v1.travelinfo.entity.room.Room;
+import com.mhkim.tms.v1.travelinfo.entity.ship.Ship;
 import com.mhkim.tms.v1.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,33 +19,33 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @ToString
 @DynamicUpdate
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_room_idx_book_date", columnNames = {"room_idx", "book_date"})})
-public class RoomBooking extends BaseTime {
+@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_ship_idx_book_date", columnNames = {"ship_idx", "book_date"})})
+public class ShipBooking extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roomBookIdx;
+    private Long shipBookIdx;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ship_idx")
+    private Ship ship;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_idx")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_idx")
-    private Room room;
-
     @Column(name = "book_date", nullable = false)
     private LocalDate bookDate;
 
     @Builder
-    public RoomBooking(Long roomBookIdx, Room room, User user, LocalDate bookDate) {
+    public ShipBooking(Long shipBookIdx, Ship ship, User user, LocalDate bookDate) {
 
-        checkNotNull(room, "Room must be provided.");
+        checkNotNull(ship, "Ship must be provided.");
         checkNotNull(user, "User must be provided.");
         checkNotNull(bookDate, "BookDate must be provided.");
 
-        this.roomBookIdx = roomBookIdx;
-        this.room = room;
+        this.shipBookIdx = shipBookIdx;
+        this.ship = ship;
         this.user = user;
         this.bookDate = bookDate;
     }

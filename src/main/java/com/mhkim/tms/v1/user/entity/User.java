@@ -23,7 +23,7 @@ public class User extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long userIdx;
 
     @Column(nullable = false, unique = true, length = 50)
     private String email;
@@ -40,13 +40,13 @@ public class User extends BaseTime {
     private Role role;
 
     @Builder
-    public User(Long userId, String email, String name, SocialType socialType, Role role) {
+    public User(Long userIdx, String email, String name, SocialType socialType, Role role) {
 
         checkArgument(isNotEmpty(email), "email must be provided.");
         checkArgument(email.length() >= 4 && email.length() <= 50, "email length must be between 4 and 50 characters.");
         checkArgument(checkEmail(email), "Invalid email address: " + email);
 
-        this.userId = userId;
+        this.userIdx = userIdx;
         this.email = email;
         this.name = name;
         this.socialType = socialType;

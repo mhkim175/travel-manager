@@ -3,7 +3,7 @@ package com.mhkim.tms.v1.booking.service;
 import com.mhkim.tms.advice.exception.CDataNotFoundException;
 import com.mhkim.tms.v1.booking.entity.FlightBooking;
 import com.mhkim.tms.v1.booking.repository.FlightBookingRepository;
-import com.mhkim.tms.v1.travelinfo.entity.Flight;
+import com.mhkim.tms.v1.travelinfo.entity.flight.Flight;
 import com.mhkim.tms.v1.travelinfo.repository.FlightRepository;
 import com.mhkim.tms.v1.user.entity.User;
 import com.mhkim.tms.v1.user.repository.UserRepository;
@@ -27,19 +27,19 @@ public class FlightBookingService {
         return flightBookingRepository.findAll();
     }
 
-    public Optional<FlightBooking> getFlightBooking(Long flightBookId) {
-        return flightBookingRepository.findById(flightBookId);
+    public Optional<FlightBooking> getFlightBooking(Long flightBookIdx) {
+        return flightBookingRepository.findById(flightBookIdx);
     }
 
-    public List<FlightBooking> getFlightBookingByUserId(Long userId) {
-        return flightBookingRepository.findAllByUserUserId(userId);
+    public List<FlightBooking> getFlightBookingByUserId(Long userIdx) {
+        return flightBookingRepository.findAllByUserUserIdx(userIdx);
     }
 
     @Transactional
-    public FlightBooking bookFlight(LocalDate bookDate, Long flightId, Long userId) {
-        Flight flight = flightRepository.findById(flightId)
+    public FlightBooking bookFlight(LocalDate bookDate, Long flightIdx, Long userIdx) {
+        Flight flight = flightRepository.findById(flightIdx)
                 .orElseThrow(() -> new CDataNotFoundException("Flight not found"));
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(userIdx)
                 .orElseThrow(() -> new CDataNotFoundException("User not found"));
 
         return flightBookingRepository.save(
@@ -52,10 +52,10 @@ public class FlightBookingService {
     }
 
     @Transactional
-    public FlightBooking deleteFlightBooking(Long flightBookId) {
-        return getFlightBooking(flightBookId)
+    public FlightBooking deleteFlightBooking(Long flightBookIdx) {
+        return getFlightBooking(flightBookIdx)
                 .map(flightBooking -> {
-                    flightBookingRepository.deleteById(flightBooking.getFlightBookId());
+                    flightBookingRepository.deleteById(flightBooking.getFlightBookIdx());
                     return flightBooking;
                 }).orElseThrow(() -> new CDataNotFoundException("FlightBooking not found"));
     }

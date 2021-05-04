@@ -18,13 +18,13 @@ public class FlightBookingDto {
     public static class Request {
 
         @ApiModelProperty(value = "항공편 예약 ID", required = true)
-        private Long flightBookId;
+        private Long flightBookIdx;
 
         @ApiModelProperty(value = "항공편 ID", required = true)
-        private Long flightId;
+        private Long flightIdx;
 
         @ApiModelProperty(value = "예약자 ID", required = true)
-        private Long userId;
+        private Long userIdx;
 
     }
 
@@ -34,13 +34,10 @@ public class FlightBookingDto {
     public static class Response {
 
         @ApiModelProperty(value = "항공편 예약 ID", required = true)
-        private String flightBookId;
-
-        @ApiModelProperty(value = "항공편 예약 날짜", required = true)
-        private String bookDate;
+        private String flightBookIdx;
 
         @ApiModelProperty(value = "항공편 ID", required = true)
-        private Long flightId;
+        private Long flightIdx;
 
         @ApiModelProperty(value = "항공사명")
         private String airlineNm;
@@ -61,7 +58,7 @@ public class FlightBookingDto {
         private String vihicleId;
 
         @ApiModelProperty(value = "예약자 ID", required = true)
-        private Long userId;
+        private Long userIdx;
 
         @ApiModelProperty(value = "예약자 이메일")
         private String email;
@@ -69,17 +66,20 @@ public class FlightBookingDto {
         @ApiModelProperty(value = "예약자명")
         private String name;
 
+        @ApiModelProperty(value = "항공편 예약 날짜", required = true)
+        private String bookDate;
+
         public Response(FlightBooking source) {
             BeanUtils.copyProperties(source, this);
 
-            this.flightId = source.getFlight().getFlightId();
+            this.flightIdx = source.getFlight().getFlightIdx();
             this.airlineNm = source.getFlight().getAirlineNm();
             this.arrAirportNm = source.getFlight().getArrAirportNm();
             this.arrPlandTime = source.getFlight().getArrPlandTime();
             this.depAirportNm = source.getFlight().getDepAirportNm();
             this.depPlandTime = source.getFlight().getDepPlandTime();
             this.vihicleId = source.getFlight().getVihicleId();
-            this.userId = source.getUser().getUserId();
+            this.userIdx = source.getUser().getUserIdx();
             this.email = source.getUser().getEmail();
             this.name = source.getUser().getName();
         }
@@ -91,15 +91,15 @@ public class FlightBookingDto {
     @ToString
     public static class Book {
 
+        @ApiModelProperty(value = "항공편 ID", required = true)
+        private Long flightIdx;
+
+        @ApiModelProperty(value = "예약자 ID", required = true)
+        private Long userIdx;
+
         @JsonFormat(pattern = "yyyy-MM-dd")
         @ApiModelProperty(value = "항공편 날짜", notes = "yyyy-MM-dd", example = "2021-01-01")
         private LocalDate bookDate;
-
-        @ApiModelProperty(value = "항공편 ID", required = true)
-        private Long flightId;
-
-        @ApiModelProperty(value = "예약자 ID", required = true)
-        private Long userId;
 
     }
 

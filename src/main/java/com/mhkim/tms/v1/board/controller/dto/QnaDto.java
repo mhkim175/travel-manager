@@ -17,7 +17,7 @@ public class QnaDto {
     public static class Response {
 
         @ApiModelProperty(value = "QnA ID")
-        private Long qnaId;
+        private Long qnaIdx;
 
         @ApiModelProperty(value = "제목")
         private String title;
@@ -26,7 +26,7 @@ public class QnaDto {
         private String content;
 
         @ApiModelProperty(value = "작성자 아이디")
-        private Long userId;
+        private Long userIdx;
 
         @ApiModelProperty(value = "작성자 이메일")
         private String email;
@@ -37,7 +37,7 @@ public class QnaDto {
         public Response(Qna source) {
             BeanUtils.copyProperties(source, this);
 
-            this.userId = source.getUser().getUserId();
+            this.userIdx = source.getUser().getUserIdx();
             this.email = source.getUser().getEmail();
             this.name = source.getUser().getName();
         }
@@ -56,7 +56,7 @@ public class QnaDto {
         private String content;
 
         @ApiModelProperty(value = "작성자 아이디", required = true)
-        private Long userId;
+        private Long userIdx;
 
     }
 
@@ -66,7 +66,7 @@ public class QnaDto {
     public static class Mod {
 
         @ApiModelProperty(value = "QnA ID")
-        private Long qnaId;
+        private Long qnaIdx;
 
         @ApiModelProperty(value = "제목", required = true)
         private String title;
@@ -82,7 +82,7 @@ public class QnaDto {
     public static class Del {
 
         @ApiModelProperty(value = "QnA ID")
-        private Long qnaId;
+        private Long qnaIdx;
 
     }
 

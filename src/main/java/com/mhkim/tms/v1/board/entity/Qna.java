@@ -24,7 +24,7 @@ public class Qna extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long qnaId;
+    private Long qnaIdx;
 
     @Column(nullable = false, length = 100)
     private String title;
@@ -33,17 +33,17 @@ public class Qna extends BaseTime {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_idx")
     private User user;
 
     @Builder
-    public Qna(Long qnaId, String title, String content, User user) {
+    public Qna(Long qnaIdx, String title, String content, User user) {
 
         checkArgument(isNotEmpty(title), "title must be provided.");
         checkArgument(isNotEmpty(content), "content must be provided.");
         checkNotNull(user, "user must be provided.");
 
-        this.qnaId = qnaId;
+        this.qnaIdx = qnaIdx;
         this.title = title;
         this.content = content;
         this.user = user;

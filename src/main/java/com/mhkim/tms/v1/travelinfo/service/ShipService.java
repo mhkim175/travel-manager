@@ -2,7 +2,7 @@ package com.mhkim.tms.v1.travelinfo.service;
 
 import com.mhkim.tms.v1.travelinfo.controller.dto.ShipItemDto;
 import com.mhkim.tms.v1.travelinfo.controller.dto.ShipItemsDto;
-import com.mhkim.tms.v1.travelinfo.entity.Ship;
+import com.mhkim.tms.v1.travelinfo.entity.ship.Ship;
 import com.mhkim.tms.v1.travelinfo.repository.ShipRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

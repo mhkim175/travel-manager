@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FlightBookingRepository extends JpaRepository<FlightBooking, Long> {
 
-    public List<FlightBooking> findAllByUserUserId(Long userId);
+    public List<FlightBooking> findAllByUserUserIdx(Long userIdx);
 
 }

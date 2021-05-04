@@ -22,13 +22,13 @@ public class QnaService {
         return qnaRepository.findAll();
     }
 
-    public Optional<Qna> getQna(Long qnaId) {
-        return qnaRepository.findById(qnaId);
+    public Optional<Qna> getQna(Long qnaIdx) {
+        return qnaRepository.findById(qnaIdx);
     }
 
     @Transactional
-    public Qna addQna(String title, String content, Long userId) {
-        return userRepository.findById(userId)
+    public Qna addQna(String title, String content, Long userIdx) {
+        return userRepository.findById(userIdx)
                 .map(user -> {
                     Qna qna = Qna.builder()
                             .title(title)
@@ -40,8 +40,8 @@ public class QnaService {
     }
 
     @Transactional
-    public Qna updateQna(Long qnaId, String title, String content) {
-        return getQna(qnaId)
+    public Qna updateQna(Long qnaIdx, String title, String content) {
+        return getQna(qnaIdx)
                 .map(qna -> {
                     qna.updateQna(title, content);
                     return qnaRepository.save(qna);
@@ -49,10 +49,10 @@ public class QnaService {
     }
 
     @Transactional
-    public Qna deleteQna(Long qnaId) {
-        return getQna(qnaId)
+    public Qna deleteQna(Long qnaIdx) {
+        return getQna(qnaIdx)
                 .map(qna -> {
-                    qnaRepository.deleteById(qna.getQnaId());
+                    qnaRepository.deleteById(qna.getQnaIdx());
                     return qna;
                 }).orElseThrow(() -> new CDataNotFoundException("Board not found"));
     }
