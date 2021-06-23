@@ -1,4 +1,4 @@
-package com.mhkim.tms.controller.v1.board.dto;
+package com.mhkim.tms.controller.v1.qna.dto;
 
 import com.mhkim.tms.entity.board.Qna;
 import io.swagger.annotations.ApiModelProperty;

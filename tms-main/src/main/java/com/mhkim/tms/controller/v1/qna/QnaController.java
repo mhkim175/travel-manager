@@ -1,7 +1,7 @@
-package com.mhkim.tms.controller.v1.board;
+package com.mhkim.tms.controller.v1.qna;
 
 import com.mhkim.tms.advice.exception.CDataNotFoundException;
-import com.mhkim.tms.controller.v1.board.dto.QnaDto;
+import com.mhkim.tms.controller.v1.qna.dto.QnaDto;
 import com.mhkim.tms.entity.board.Qna;
 import com.mhkim.tms.service.board.QnaService;
 import io.swagger.annotations.Api;
