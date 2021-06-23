@@ -1,7 +1,0 @@
-opendata:
-  base-url: http://openapi.tago.go.kr/openapi/service
-  bus-service-url: /ExpBusInfoService/getStrtpntAlocFndExpbusInfo
-  flight-service-url: /DmstcFlightNvgInfoService/getFlightOpratInfoList
-  ship-service-url: /DmstcShipNvgInfoService/getShipOpratInfoList
-  service-key: service-key
-  num-of-rows: 10

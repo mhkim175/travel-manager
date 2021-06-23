@@ -1,1 +1,5 @@
 rootProject.name = 'tms'
+
+include("tms-gateway")
+include("tms-main")
+include("tms-log")

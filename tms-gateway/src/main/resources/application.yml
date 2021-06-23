@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /tms
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway GlobalFilter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: tms-main
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/tms/**
+        - id: tms-log
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/tms-log/**
