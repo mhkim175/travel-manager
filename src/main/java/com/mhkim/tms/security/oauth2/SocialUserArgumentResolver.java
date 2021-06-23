@@ -1,6 +1,6 @@
 package com.mhkim.tms.security.oauth2;
 
-import com.mhkim.tms.v1.user.controller.dto.SessionUser;
+import com.mhkim.tms.controller.v1.user.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

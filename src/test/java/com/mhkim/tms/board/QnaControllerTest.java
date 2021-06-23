@@ -1,7 +1,7 @@
 package com.mhkim.tms.board;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mhkim.tms.v1.board.controller.dto.QnaDto;
+import com.mhkim.tms.controller.v1.board.dto.QnaDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

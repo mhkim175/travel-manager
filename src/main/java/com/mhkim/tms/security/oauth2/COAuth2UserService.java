@@ -1,8 +1,8 @@
 package com.mhkim.tms.security.oauth2;
 
-import com.mhkim.tms.v1.user.controller.dto.SessionUser;
-import com.mhkim.tms.v1.user.entity.User;
-import com.mhkim.tms.v1.user.repository.UserRepository;
+import com.mhkim.tms.controller.v1.user.dto.SessionUser;
+import com.mhkim.tms.entity.user.User;
+import com.mhkim.tms.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

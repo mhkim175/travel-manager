@@ -1,7 +1,7 @@
 package com.mhkim.tms.batch;
 
-import com.mhkim.tms.v1.travelinfo.controller.dto.RoomItemDto;
-import com.mhkim.tms.v1.travelinfo.entity.room.Room;
+import com.mhkim.tms.controller.v1.room.dto.RoomItemDto;
+import com.mhkim.tms.entity.room.Room;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,6 +1,6 @@
 package com.mhkim.tms.batch;
 
-import com.mhkim.tms.v1.travelinfo.controller.dto.RoomItemDto;
+import com.mhkim.tms.controller.v1.room.dto.RoomItemDto;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;

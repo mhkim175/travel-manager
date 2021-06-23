@@ -2,7 +2,7 @@ package com.mhkim.tms.security.oauth2;
 
 import java.util.Map;
 
-import com.mhkim.tms.v1.user.entity.User;
+import com.mhkim.tms.entity.user.User;
 
 import lombok.Builder;
 import lombok.Getter;

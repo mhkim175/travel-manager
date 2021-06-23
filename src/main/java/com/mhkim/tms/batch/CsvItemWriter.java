@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Configuration;
 
-import com.mhkim.tms.v1.travelinfo.entity.room.Room;
-import com.mhkim.tms.v1.travelinfo.service.RoomService;
+import com.mhkim.tms.entity.room.Room;
+import com.mhkim.tms.service.room.RoomService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

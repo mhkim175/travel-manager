@@ -1,8 +1,8 @@
 package com.mhkim.tms.board;
 
-import com.mhkim.tms.v1.board.entity.Qna;
-import com.mhkim.tms.v1.board.service.QnaService;
-import com.mhkim.tms.v1.user.entity.User;
+import com.mhkim.tms.entity.board.Qna;
+import com.mhkim.tms.service.board.QnaService;
+import com.mhkim.tms.entity.user.User;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
