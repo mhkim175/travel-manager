@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/bus")
-public class TravelInfoController {
+@RequestMapping("/api/v1/buses")
+public class BusController {
 
     private final BusService busService;
 
-    @PostMapping(value = "/bus/sync")
+    @PostMapping(value = "/sync")
     public void syncBus() {
         busService.syncBus();
     }

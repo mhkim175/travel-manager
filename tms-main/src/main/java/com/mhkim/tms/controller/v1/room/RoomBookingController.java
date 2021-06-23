@@ -18,13 +18,13 @@ import static java.util.stream.Collectors.toList;
 @Api(tags = {"2. Booking-Room"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/booking")
+@RequestMapping("/api/v1/rooms/bookings")
 public class RoomBookingController {
 
     private final RoomBookingService roombookingService;
 
-    @ApiOperation(value = "예약숙소 목록 조회")
-    @GetMapping(value = "/rooms")
+    @ApiOperation(value = "예약 숙소 목록 조회")
+    @GetMapping
     public ResponseEntity<List<RoomBookingDto.Response>> getRoomBookingList() {
         return ResponseEntity.ok(
                 roombookingService.getRoomBookingList().stream()
@@ -33,18 +33,18 @@ public class RoomBookingController {
         );
     }
 
-    @ApiOperation(value = "예약자의 예약숙소 목록 조회")
-    @GetMapping(value = "/room")
-    public ResponseEntity<List<RoomBookingDto.Response>> getRoomBookingList(@RequestBody RoomBookingDto.Request param) {
+    @ApiOperation(value = "예약자의 예약 숙소 목록 조회")
+    @GetMapping(value = "/{userIdx}/user")
+    public ResponseEntity<List<RoomBookingDto.Response>> getRoomBookingList(@PathVariable Long userIdx) {
         return ResponseEntity.ok(
-                roombookingService.getRoomBookingByUserId(param.getUserIdx()).stream()
+                roombookingService.getRoomBookingByUserId(userIdx).stream()
                         .map(RoomBookingDto.Response::new)
                         .collect(toList())
         );
     }
 
-    @ApiOperation(value = "예약숙소 조회")
-    @GetMapping(value = "/room/{roomBookIdx}")
+    @ApiOperation(value = "예약 숙소 조회")
+    @GetMapping(value = "/{roomBookIdx}")
     public ResponseEntity<RoomBookingDto.Response> getRoomBooking(@PathVariable("roomBookIdx") Long roomBookIdx) {
         return ResponseEntity.ok(
                 roombookingService.getRoomBooking(roomBookIdx)
@@ -54,16 +54,16 @@ public class RoomBookingController {
     }
 
     @ApiOperation(value = "숙소 예약")
-    @PostMapping(value = "/room/book")
+    @PostMapping
     public ResponseEntity<RoomBookingDto.Response> bookRoom(@RequestBody RoomBookingDto.Book param) {
         RoomBooking roomBooking = roombookingService.bookRoom(param.getBookDate(), param.getRoomIdx(), param.getUserIdx());
         return new ResponseEntity<>(new RoomBookingDto.Response(roomBooking), HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "예약숙소 삭제")
-    @DeleteMapping(value = "/room")
-    public ResponseEntity<RoomBookingDto.Response> deleteQna(@RequestBody RoomBookingDto.Request param) {
-        RoomBooking roomBooking = roombookingService.deleteRoomBooking(param.getRoomBookIdx());
+    @ApiOperation(value = "예약 숙소 삭제")
+    @DeleteMapping(value = "/{roomBookIdx}")
+    public ResponseEntity<RoomBookingDto.Response> deleteQna(@PathVariable("roomBookIdx") Long roomBookIdx) {
+        RoomBooking roomBooking = roombookingService.deleteRoomBooking(roomBookIdx);
         return ResponseEntity.ok(new RoomBookingDto.Response(roomBooking));
     }
 

@@ -9,7 +9,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
 
 @Configuration
-public class WebClientConfiguration {
+public class WebClientConfig {
 
     @Bean
     public WebClient tagoWebClient(OpendataProperty opendataProperty) {

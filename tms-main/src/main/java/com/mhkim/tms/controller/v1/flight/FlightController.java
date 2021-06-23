@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/flight")
+@RequestMapping("/api/v1/flights")
 public class FlightController {
 
     private final FlightService flightService;
-    @PostMapping(value = "/flight/sync")
+    @PostMapping(value = "/sync")
     public void syncFlight() {
         flightService.syncFlight();
     }

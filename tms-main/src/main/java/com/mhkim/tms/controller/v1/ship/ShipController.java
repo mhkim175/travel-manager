@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/ship")
+@RequestMapping("/api/v1/ships")
 public class ShipController {
 
     private final ShipService shipService;
 
-    @PostMapping(value = "/ship/sync")
+    @PostMapping(value = "/sync")
     public void syncShip() {
         shipService.syncShip();
     }

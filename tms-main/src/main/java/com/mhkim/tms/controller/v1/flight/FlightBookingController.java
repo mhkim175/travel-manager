@@ -18,13 +18,12 @@ import static java.util.stream.Collectors.toList;
 @Api(tags = {"4. Booking-Flight"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/booking")
+@RequestMapping("/api/v1/flights/bookings")
 public class FlightBookingController {
 
     private final FlightBookingService flightBookingService;
 
-    @ApiOperation(value = "항공편 목록 조회")
-    @GetMapping(value = "/flights")
+    @ApiOperation(value = "예약 항공편 전체 조회")
     public ResponseEntity<List<FlightBookingDto.Response>> getFlightBookingList() {
         return ResponseEntity.ok(
                 flightBookingService.getFlightBookingList().stream()
@@ -34,17 +33,17 @@ public class FlightBookingController {
     }
 
     @ApiOperation(value = "예약자의 항공편 목록 조회")
-    @GetMapping(value = "/flight")
-    public ResponseEntity<List<FlightBookingDto.Response>> getFlightBookingList(@RequestBody FlightBookingDto.Request param) {
+    @GetMapping(value = "/{userIdx}/user")
+    public ResponseEntity<List<FlightBookingDto.Response>> getFlightBookingList(@PathVariable Long userIdx) {
         return ResponseEntity.ok(
-                flightBookingService.getFlightBookingByUserId(param.getUserIdx()).stream()
+                flightBookingService.getFlightBookingByUserId(userIdx).stream()
                         .map(FlightBookingDto.Response::new)
                         .collect(toList())
         );
     }
 
-    @ApiOperation(value = "항공편 조회")
-    @GetMapping(value = "/flight/{flightBookIdx}")
+    @ApiOperation(value = "예약 항공편 개별 조회")
+    @GetMapping(value = "/{flightBookIdx}")
     public ResponseEntity<FlightBookingDto.Response> getFlightBooking(@PathVariable("flightBookIdx") Long flightBookIdx) {
         return ResponseEntity.ok(
                 flightBookingService.getFlightBooking(flightBookIdx)
@@ -54,16 +53,16 @@ public class FlightBookingController {
     }
 
     @ApiOperation(value = "항공편 예약")
-    @PostMapping(value = "/flight/book")
+    @PostMapping
     public ResponseEntity<FlightBookingDto.Response> bookFlight(@RequestBody FlightBookingDto.Book param) {
         FlightBooking flightBooking = flightBookingService.bookFlight(param.getBookDate(), param.getFlightSeatIdx(), param.getUserIdx());
         return new ResponseEntity<>(new FlightBookingDto.Response(flightBooking), HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "항공편 삭제")
-    @DeleteMapping(value = "/flight")
-    public ResponseEntity<FlightBookingDto.Response> deleteQna(@RequestBody FlightBookingDto.Request param) {
-        FlightBooking flightBooking = flightBookingService.deleteFlightBooking(param.getFlightBookIdx());
+    @ApiOperation(value = "예약 항공편 삭제")
+    @DeleteMapping(value = "/{flightBookIdx}")
+    public ResponseEntity<FlightBookingDto.Response> deleteQna(@PathVariable("flightBookIdx") Long flightBookIdx) {
+        FlightBooking flightBooking = flightBookingService.deleteFlightBooking(flightBookIdx);
         return ResponseEntity.ok(new FlightBookingDto.Response(flightBooking));
     }
 

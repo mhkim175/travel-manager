@@ -63,24 +63,11 @@ public class QnaDto {
     @ToString
     public static class Mod {
 
-        @ApiModelProperty(value = "QnA ID")
-        private Long qnaIdx;
-
         @ApiModelProperty(value = "제목", required = true)
         private String title;
 
         @ApiModelProperty(value = "내용", required = true)
         private String content;
-
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    public static class Del {
-
-        @ApiModelProperty(value = "QnA ID")
-        private Long qnaIdx;
 
     }
 
