@@ -1,8 +1,10 @@
-package com.mhkim.tms.service.board;
+package com.mhkim.tms.service.qna;
 
-import com.mhkim.tms.advice.exception.CDataNotFoundException;
-import com.mhkim.tms.entity.board.Qna;
-import com.mhkim.tms.repository.board.QnaRepository;
+import com.mhkim.tms.controller.v1.qna.dto.QnaDto;
+import com.mhkim.tms.entity.user.User;
+import com.mhkim.tms.exception.error.NotFoundException;
+import com.mhkim.tms.entity.qna.Qna;
+import com.mhkim.tms.repository.qna.QnaRepository;
 import com.mhkim.tms.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,9 @@ public class QnaService {
         return qnaRepository.findAll();
     }
 
-    public Optional<Qna> getQna(Long qnaIdx) {
-        return qnaRepository.findById(qnaIdx);
+    public Qna getQna(Long qnaIdx) {
+        return qnaRepository.findById(qnaIdx)
+                .orElseThrow(() -> new NotFoundException(Qna.class, qnaIdx));
     }
 
     @Transactional
@@ -36,25 +39,25 @@ public class QnaService {
                             .user(user)
                             .build();
                     return qnaRepository.save(qna);
-                }).orElseThrow(() -> new CDataNotFoundException("User not found"));
+                }).orElseThrow(() -> new NotFoundException(User.class, userIdx));
     }
 
     @Transactional
     public Qna updateQna(Long qnaIdx, String title, String content) {
-        return getQna(qnaIdx)
+        return qnaRepository.findById(qnaIdx)
                 .map(qna -> {
                     qna.updateQna(title, content);
                     return qnaRepository.save(qna);
-                }).orElseThrow(() -> new CDataNotFoundException("Board not found"));
+                }).orElseThrow(() -> new NotFoundException(Qna.class, qnaIdx));
     }
 
     @Transactional
     public Qna deleteQna(Long qnaIdx) {
-        return getQna(qnaIdx)
+        return qnaRepository.findById(qnaIdx)
                 .map(qna -> {
                     qnaRepository.deleteById(qna.getQnaIdx());
                     return qna;
-                }).orElseThrow(() -> new CDataNotFoundException("Board not found"));
+                }).orElseThrow(() -> new NotFoundException(Qna.class, qnaIdx));
     }
 
 }

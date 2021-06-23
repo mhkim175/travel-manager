@@ -1,7 +1,7 @@
 package com.mhkim.tms.board;
 
-import com.mhkim.tms.entity.board.Qna;
-import com.mhkim.tms.service.board.QnaService;
+import com.mhkim.tms.entity.qna.Qna;
+import com.mhkim.tms.service.qna.QnaService;
 import com.mhkim.tms.entity.user.User;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class QnaServiceTest {
     @Test
     @Order(3)
     void 게시글_단건_조회() {
-        Qna qnaResult = qnaService.getQna(1L).orElse(null);
+        Qna qnaResult = qnaService.getQna(1L);
         assertThat(qnaResult).isNotNull();
     }
 

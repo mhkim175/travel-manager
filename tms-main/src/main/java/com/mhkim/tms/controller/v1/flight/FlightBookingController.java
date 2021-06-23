@@ -1,6 +1,6 @@
 package com.mhkim.tms.controller.v1.flight;
 
-import com.mhkim.tms.advice.exception.CDataNotFoundException;
+import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.controller.v1.flight.dto.FlightBookingDto;
 import com.mhkim.tms.entity.flight.FlightBooking;
 import com.mhkim.tms.service.flight.FlightBookingService;
@@ -46,9 +46,9 @@ public class FlightBookingController {
     @GetMapping(value = "/{flightBookIdx}")
     public ResponseEntity<FlightBookingDto.Response> getFlightBooking(@PathVariable("flightBookIdx") Long flightBookIdx) {
         return ResponseEntity.ok(
-                flightBookingService.getFlightBooking(flightBookIdx)
-                        .map(FlightBookingDto.Response::new)
-                        .orElseThrow(() -> new CDataNotFoundException("FlightBooking not found"))
+                new FlightBookingDto.Response(
+                        flightBookingService.getFlightBooking(flightBookIdx)
+                )
         );
     }
 

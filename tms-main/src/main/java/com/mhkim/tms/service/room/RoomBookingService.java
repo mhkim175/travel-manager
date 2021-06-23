@@ -1,6 +1,6 @@
 package com.mhkim.tms.service.room;
 
-import com.mhkim.tms.advice.exception.CDataNotFoundException;
+import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.entity.room.RoomBooking;
 import com.mhkim.tms.repository.room.RoomBookingRepository;
 import com.mhkim.tms.entity.room.Room;
@@ -27,8 +27,9 @@ public class RoomBookingService {
         return roomBookingRepository.findAll();
     }
 
-    public Optional<RoomBooking> getRoomBooking(Long roomBookIds) {
-        return roomBookingRepository.findById(roomBookIds);
+    public RoomBooking getRoomBooking(Long roomBookIdx) {
+        return roomBookingRepository.findById(roomBookIdx)
+                .orElseThrow(() -> new NotFoundException(RoomBooking.class, roomBookIdx));
     }
 
     public List<RoomBooking> getRoomBookingByUserId(Long userIdx) {
@@ -38,9 +39,9 @@ public class RoomBookingService {
     @Transactional
     public RoomBooking bookRoom(LocalDate bookDate, Long roomIdx, Long userIdx) {
         Room room = roomRepository.findById(roomIdx)
-                .orElseThrow(() -> new CDataNotFoundException("Room not found"));
+                .orElseThrow(() -> new NotFoundException(Room.class, roomIdx));
         User user = userRepository.findById(userIdx)
-                .orElseThrow(() -> new CDataNotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(User.class, userIdx));
 
         return roomBookingRepository.save(
                 RoomBooking.builder()
@@ -53,11 +54,11 @@ public class RoomBookingService {
 
     @Transactional
     public RoomBooking deleteRoomBooking(Long roomBookIdx) {
-        return getRoomBooking(roomBookIdx)
+        return roomBookingRepository.findById(roomBookIdx)
                 .map(roomBooking -> {
                     roomBookingRepository.deleteById(roomBooking.getRoomBookIdx());
                     return roomBooking;
-                }).orElseThrow(() -> new CDataNotFoundException("RoomBooking not found"));
+                }).orElseThrow(() -> new NotFoundException(RoomBooking.class, roomBookIdx));
     }
 
 }

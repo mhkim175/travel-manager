@@ -1,12 +1,13 @@
 package com.mhkim.tms.controller.v1.qna;
 
-import com.mhkim.tms.advice.exception.CDataNotFoundException;
+import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.controller.v1.qna.dto.QnaDto;
-import com.mhkim.tms.entity.board.Qna;
-import com.mhkim.tms.service.board.QnaService;
+import com.mhkim.tms.entity.qna.Qna;
+import com.mhkim.tms.service.qna.QnaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +25,13 @@ public class QnaController {
     private final QnaService qnaService;
 
     @ApiOperation(value = "QnA 목록 조회")
-    public ResponseEntity<List<QnaDto.Response>> getQnaList() {
+    public ResponseEntity<CollectionModel<QnaDto.Response>> getQnas() {
         return ResponseEntity.ok(
-                qnaService.getQnaList().stream()
-                        .map(QnaDto.Response::new)
-                        .collect(toList())
+                CollectionModel.of(
+                        qnaService.getQnaList().stream()
+                                .map(QnaDto.Response::new)
+                                .collect(toList())
+                )
         );
     }
 
@@ -36,9 +39,9 @@ public class QnaController {
     @GetMapping(value = "/{qnaIdx}")
     public ResponseEntity<QnaDto.Response> getQna(@PathVariable("qnaIdx") Long qnaIdx) {
         return ResponseEntity.ok(
-                qnaService.getQna(qnaIdx)
-                        .map(QnaDto.Response::new)
-                        .orElseThrow(() -> new CDataNotFoundException("Board not found"))
+                new QnaDto.Response(
+                        qnaService.getQna(qnaIdx)
+                )
         );
     }
 

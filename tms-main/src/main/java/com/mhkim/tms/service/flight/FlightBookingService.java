@@ -1,6 +1,6 @@
 package com.mhkim.tms.service.flight;
 
-import com.mhkim.tms.advice.exception.CDataNotFoundException;
+import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.entity.flight.FlightBooking;
 import com.mhkim.tms.repository.flight.FlightBookingRepository;
 import com.mhkim.tms.entity.flight.FlightSeat;
@@ -27,20 +27,21 @@ public class FlightBookingService {
         return flightBookingRepository.findAll();
     }
 
-    public Optional<FlightBooking> getFlightBooking(Long flightBookIdx) {
-        return flightBookingRepository.findById(flightBookIdx);
-    }
-
     public List<FlightBooking> getFlightBookingByUserId(Long userIdx) {
         return flightBookingRepository.findAllByUserUserIdx(userIdx);
+    }
+
+    public FlightBooking getFlightBooking(Long flightBookIdx) {
+        return flightBookingRepository.findById(flightBookIdx)
+                .orElseThrow(() -> new NotFoundException(FlightBooking.class, flightBookIdx));
     }
 
     @Transactional
     public FlightBooking bookFlight(LocalDate bookDate, Long flightSeatIdx, Long userIdx) {
         FlightSeat flightSeat = flightSeatRepository.findById(flightSeatIdx)
-                .orElseThrow(() -> new CDataNotFoundException("FlightSeat not found"));
+                .orElseThrow(() -> new NotFoundException(FlightSeat.class, flightSeatIdx));
         User user = userRepository.findById(userIdx)
-                .orElseThrow(() -> new CDataNotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(User.class, userIdx));
 
         return flightBookingRepository.save(
                 FlightBooking.builder()
@@ -53,11 +54,11 @@ public class FlightBookingService {
 
     @Transactional
     public FlightBooking deleteFlightBooking(Long flightBookIdx) {
-        return getFlightBooking(flightBookIdx)
+        return flightBookingRepository.findById(flightBookIdx)
                 .map(flightBooking -> {
                     flightBookingRepository.deleteById(flightBooking.getFlightBookIdx());
                     return flightBooking;
-                }).orElseThrow(() -> new CDataNotFoundException("FlightBooking not found"));
+                }).orElseThrow(() -> new NotFoundException(FlightBooking.class, flightBookIdx));
     }
 
 }

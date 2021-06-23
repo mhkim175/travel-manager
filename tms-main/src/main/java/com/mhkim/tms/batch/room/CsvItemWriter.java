@@ -1,4 +1,4 @@
-package com.mhkim.tms.batch;
+package com.mhkim.tms.batch.room;
 
 import java.util.List;
 

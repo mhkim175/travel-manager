@@ -1,4 +1,4 @@
-package com.mhkim.tms.entity.board;
+package com.mhkim.tms.entity.qna;
 
 import com.mhkim.tms.entity.BaseTimeEntity;
 import com.mhkim.tms.entity.user.User;

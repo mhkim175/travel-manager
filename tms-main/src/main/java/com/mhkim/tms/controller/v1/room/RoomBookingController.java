@@ -1,6 +1,6 @@
 package com.mhkim.tms.controller.v1.room;
 
-import com.mhkim.tms.advice.exception.CDataNotFoundException;
+import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.controller.v1.room.dto.RoomBookingDto;
 import com.mhkim.tms.entity.room.RoomBooking;
 import com.mhkim.tms.service.room.RoomBookingService;
@@ -47,9 +47,9 @@ public class RoomBookingController {
     @GetMapping(value = "/{roomBookIdx}")
     public ResponseEntity<RoomBookingDto.Response> getRoomBooking(@PathVariable("roomBookIdx") Long roomBookIdx) {
         return ResponseEntity.ok(
-                roombookingService.getRoomBooking(roomBookIdx)
-                        .map(RoomBookingDto.Response::new)
-                        .orElseThrow(() -> new CDataNotFoundException("RoomBooking not found"))
+                new RoomBookingDto.Response(
+                        roombookingService.getRoomBooking(roomBookIdx)
+                )
         );
     }
 

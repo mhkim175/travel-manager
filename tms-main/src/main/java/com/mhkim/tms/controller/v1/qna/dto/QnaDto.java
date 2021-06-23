@@ -1,6 +1,6 @@
 package com.mhkim.tms.controller.v1.qna.dto;
 
-import com.mhkim.tms.entity.board.Qna;
+import com.mhkim.tms.entity.qna.Qna;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.mhkim.tms.batch;
+package com.mhkim.tms.batch.room;
 
 import com.mhkim.tms.controller.v1.room.dto.RoomItemDto;
 import com.mhkim.tms.entity.room.Room;

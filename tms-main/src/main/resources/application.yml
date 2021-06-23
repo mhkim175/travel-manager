@@ -6,7 +6,12 @@ server:
 spring:
   profiles:
     include: oauth2, opendata
-  
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    cache-duration: PT1H
+
   session:
     store-type: jdbc
   
