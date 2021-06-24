@@ -28,7 +28,7 @@ public class QnaController {
     public ResponseEntity<CollectionModel<QnaDto.Response>> getQnas() {
         return ResponseEntity.ok(
                 CollectionModel.of(
-                        qnaService.getQnaList().stream()
+                        qnaService.getQnas().stream()
                                 .map(QnaDto.Response::new)
                                 .collect(toList())
                 )
@@ -38,31 +38,37 @@ public class QnaController {
     @ApiOperation(value = "QnA 조회")
     @GetMapping(value = "/{qnaIdx}")
     public ResponseEntity<QnaDto.Response> getQna(@PathVariable("qnaIdx") Long qnaIdx) {
+        Qna qna = qnaService.getQna(qnaIdx);
         return ResponseEntity.ok(
-                new QnaDto.Response(
-                        qnaService.getQna(qnaIdx)
-                )
+                new QnaDto.Response(qna)
         );
     }
 
     @ApiOperation(value = "QnA 추가")
     public ResponseEntity<QnaDto.Response> addQna(@RequestBody QnaDto.Add param) {
         Qna qna = qnaService.addQna(param.getTitle(), param.getContent(), param.getUserIdx());
-        return new ResponseEntity<>(new QnaDto.Response(qna), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new QnaDto.Response(qna),
+                HttpStatus.CREATED
+        );
     }
 
     @ApiOperation(value = "QnA 수정")
     @PatchMapping(value = "/{qnaIdx}")
     public ResponseEntity<QnaDto.Response> updateQna(@PathVariable Long qnaIdx, @RequestBody QnaDto.Mod param) {
         Qna qna = qnaService.updateQna(qnaIdx, param.getTitle(), param.getContent());
-        return ResponseEntity.ok(new QnaDto.Response(qna));
+        return ResponseEntity.ok(
+                new QnaDto.Response(qna)
+        );
     }
 
     @ApiOperation(value = "QnA 삭제")
     @DeleteMapping(value = "/{qnaIdx}")
     public ResponseEntity<QnaDto.Response> deleteQna(@PathVariable Long qnaIdx) {
         Qna qna = qnaService.deleteQna(qnaIdx);
-        return ResponseEntity.ok(new QnaDto.Response(qna));
+        return ResponseEntity.ok(
+                new QnaDto.Response(qna)
+        );
     }
 
 }

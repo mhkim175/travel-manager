@@ -50,7 +50,7 @@ public class QnaServiceTest {
     @Test
     @Order(2)
     void 게시글_전체_조회() {
-        List<Qna> qnas = qnaService.getQnaList();
+        List<Qna> qnas = qnaService.getQnas();
         assertThat(qnas).isNotNull().hasSize(1);
     }
 
