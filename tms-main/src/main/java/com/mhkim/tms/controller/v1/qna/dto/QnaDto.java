@@ -2,17 +2,22 @@ package com.mhkim.tms.controller.v1.qna.dto;
 
 import com.mhkim.tms.entity.qna.Qna;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.BeanUtils;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 public class QnaDto {
 
+    @EqualsAndHashCode(callSuper = false)
+    @Relation(itemRelation = "qna", collectionRelation = "qnas")
     @Getter
     @Setter
     @ToString
-    public static class Response {
+    public static class Response extends RepresentationModel<Response> {
 
         @ApiModelProperty(value = "QnA ID")
         private Long qnaIdx;
