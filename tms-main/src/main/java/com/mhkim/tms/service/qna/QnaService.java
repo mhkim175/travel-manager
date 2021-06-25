@@ -20,7 +20,7 @@ public class QnaService {
     private final QnaRepository qnaRepository;
     private final UserRepository userRepository;
 
-    public List<Qna> getQnaList() {
+    public List<Qna> getQnas() {
         return qnaRepository.findAll();
     }
 
@@ -38,8 +38,9 @@ public class QnaService {
                             .content(content)
                             .user(user)
                             .build();
-                    return qnaRepository.save(qna);
-                }).orElseThrow(() -> new NotFoundException(User.class, userIdx));
+                    return save(qna);
+                })
+                .orElseThrow(() -> new NotFoundException(User.class, userIdx));
     }
 
     @Transactional
@@ -47,8 +48,9 @@ public class QnaService {
         return qnaRepository.findById(qnaIdx)
                 .map(qna -> {
                     qna.updateQna(title, content);
-                    return qnaRepository.save(qna);
-                }).orElseThrow(() -> new NotFoundException(Qna.class, qnaIdx));
+                    return save(qna);
+                })
+                .orElseThrow(() -> new NotFoundException(Qna.class, qnaIdx));
     }
 
     @Transactional
@@ -57,7 +59,12 @@ public class QnaService {
                 .map(qna -> {
                     qnaRepository.deleteById(qna.getQnaIdx());
                     return qna;
-                }).orElseThrow(() -> new NotFoundException(Qna.class, qnaIdx));
+                })
+                .orElseThrow(() -> new NotFoundException(Qna.class, qnaIdx));
+    }
+
+    private Qna save(Qna qna) {
+        return qnaRepository.save(qna);
     }
 
 }

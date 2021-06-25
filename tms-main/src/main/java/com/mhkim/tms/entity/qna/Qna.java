@@ -38,7 +38,6 @@ public class Qna extends BaseTimeEntity {
 
     @Builder
     public Qna(Long qnaIdx, String title, String content, User user) {
-
         checkArgument(isNotEmpty(title), "title must be provided.");
         checkArgument(isNotEmpty(content), "content must be provided.");
         checkNotNull(user, "user must be provided.");

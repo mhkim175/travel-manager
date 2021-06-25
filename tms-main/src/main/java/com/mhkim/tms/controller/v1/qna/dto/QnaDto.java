@@ -2,17 +2,22 @@ package com.mhkim.tms.controller.v1.qna.dto;
 
 import com.mhkim.tms.entity.qna.Qna;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.BeanUtils;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 public class QnaDto {
 
+    @EqualsAndHashCode(callSuper = false)
+    @Relation(itemRelation = "qna", collectionRelation = "qnas")
     @Getter
     @Setter
     @ToString
-    public static class Response {
+    public static class Response extends RepresentationModel<Response> {
 
         @ApiModelProperty(value = "QnA ID")
         private Long qnaIdx;
@@ -23,7 +28,7 @@ public class QnaDto {
         @ApiModelProperty(value = "내용")
         private String content;
 
-        @ApiModelProperty(value = "작성자 아이디")
+        @ApiModelProperty(value = "작성자 ID")
         private Long userIdx;
 
         @ApiModelProperty(value = "작성자 이메일")
@@ -32,12 +37,13 @@ public class QnaDto {
         @ApiModelProperty(value = "작성자명")
         private String name;
 
-        public Response(Qna source) {
-            BeanUtils.copyProperties(source, this);
-
-            this.userIdx = source.getUser().getUserIdx();
-            this.email = source.getUser().getEmail();
-            this.name = source.getUser().getName();
+        public Response(Qna qna) {
+            this.qnaIdx = qna.getQnaIdx();
+            this.title = qna.getTitle();
+            this.content = qna.getContent();
+            this.userIdx = qna.getUser().getUserIdx();
+            this.email = qna.getUser().getEmail();
+            this.name = qna.getUser().getName();
         }
 
     }

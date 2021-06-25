@@ -42,6 +42,8 @@ subprojects {
 		runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 		annotationProcessor 'org.projectlombok:lombok'
 		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+		testCompileOnly 'org.projectlombok:lombok'
+		testAnnotationProcessor 'org.projectlombok:lombok'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	}
 
