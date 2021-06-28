@@ -60,6 +60,7 @@ public class QnaController {
     }
 
     @ApiOperation(value = "QnA 추가")
+    @PostMapping
     public ResponseEntity<QnaDto.Response> addQna(@RequestBody QnaDto.Add param) {
         var qna = qnaService.addQna(param.getTitle(), param.getContent(), param.getUserIdx());
         return new ResponseEntity<>(

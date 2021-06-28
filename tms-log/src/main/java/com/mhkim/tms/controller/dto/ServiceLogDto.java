@@ -12,7 +12,7 @@ import org.springframework.hateoas.server.core.Relation;
 public class ServiceLogDto {
 
     @EqualsAndHashCode(callSuper = false)
-    @Relation(itemRelation = "qna", collectionRelation = "qnas")
+    @Relation(itemRelation = "serviceLog", collectionRelation = "serviceLogs")
     @Getter
     @Setter
     @ToString
