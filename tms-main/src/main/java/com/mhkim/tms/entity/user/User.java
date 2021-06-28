@@ -3,10 +3,8 @@ package com.mhkim.tms.entity.user;
 import com.mhkim.tms.entity.BaseTimeEntity;
 import com.mhkim.tms.security.oauth2.Role;
 import com.mhkim.tms.security.oauth2.SocialType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -14,11 +12,11 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.mhkim.tms.util.ValidationUtils.checkEmail;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-@NoArgsConstructor
-@Getter
-@ToString
+@DynamicUpdate
 @Entity
-@Table(name = "user")
+@Getter
+@NoArgsConstructor
+@ToString
 public class User extends BaseTimeEntity {
 
     @Id
@@ -41,7 +39,6 @@ public class User extends BaseTimeEntity {
 
     @Builder
     public User(Long userIdx, String email, String name, SocialType socialType, Role role) {
-
         checkArgument(isNotEmpty(email), "email must be provided.");
         checkArgument(email.length() >= 4 && email.length() <= 50, "email length must be between 4 and 50 characters.");
         checkArgument(checkEmail(email), "Invalid email address: " + email);

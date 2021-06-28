@@ -9,11 +9,11 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+@DynamicUpdate
+@Entity
 @Getter
 @NoArgsConstructor
 @ToString
-@DynamicUpdate
-@Entity
 public class FlightSeat extends BaseTimeEntity {
 
     @Id

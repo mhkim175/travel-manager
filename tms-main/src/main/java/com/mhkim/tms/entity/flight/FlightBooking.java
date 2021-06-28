@@ -13,12 +13,12 @@ import java.time.LocalDate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@DynamicUpdate
+@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_flight_seat_idx_book_date", columnNames = {"flight_seat_idx", "book_date"})})
+@Entity
 @Getter
 @NoArgsConstructor
 @ToString
-@DynamicUpdate
-@Entity
-@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_flight_seat_idx_book_date", columnNames = {"flight_seat_idx", "book_date"})})
 public class FlightBooking extends BaseTimeEntity {
 
     @Id
@@ -38,7 +38,6 @@ public class FlightBooking extends BaseTimeEntity {
 
     @Builder
     public FlightBooking(Long flightBookIdx, FlightSeat flightSeat, User user, LocalDate bookDate) {
-
         checkNotNull(flightSeat, "FlightSeat must be provided.");
         checkNotNull(user, "User must be provided.");
         checkNotNull(bookDate, "BookDate must be provided.");

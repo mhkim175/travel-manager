@@ -2,10 +2,7 @@ package com.mhkim.tms.entity.qna;
 
 import com.mhkim.tms.entity.BaseTimeEntity;
 import com.mhkim.tms.entity.user.User;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -14,12 +11,11 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
+@DynamicUpdate
+@Entity
 @Getter
 @NoArgsConstructor
 @ToString
-@DynamicUpdate
-@Entity
-@Table(name = "qna")
 public class Qna extends BaseTimeEntity {
 
     @Id
