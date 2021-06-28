@@ -2,3 +2,7 @@ server:
   port: 8082
   servlet:
     context-path: /tms-log
+
+elasticsearch:
+  host: 127.0.0.1
+  port: 9200
