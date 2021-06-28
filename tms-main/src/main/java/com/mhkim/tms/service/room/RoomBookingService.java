@@ -1,19 +1,16 @@
 package com.mhkim.tms.service.room;
 
-import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.entity.room.RoomBooking;
+import com.mhkim.tms.exception.error.AlreadyExistsException;
+import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.repository.room.RoomBookingRepository;
-import com.mhkim.tms.entity.room.Room;
 import com.mhkim.tms.repository.room.RoomRepository;
-import com.mhkim.tms.entity.user.User;
 import com.mhkim.tms.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -23,42 +20,39 @@ public class RoomBookingService {
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
 
-    public List<RoomBooking> getRoomBookingList() {
+    public List<RoomBooking> getRoomBookings() {
         return roomBookingRepository.findAll();
     }
 
-    public RoomBooking getRoomBooking(Long roomBookIdx) {
-        return roomBookingRepository.findById(roomBookIdx)
-                .orElseThrow(() -> new NotFoundException(RoomBooking.class, roomBookIdx));
-    }
-
-    public List<RoomBooking> getRoomBookingByUserId(Long userIdx) {
-        return roomBookingRepository.findAllByUserUserIdx(userIdx);
+    public RoomBooking getRoomBooking(Long roomBookingIdx) {
+        return roomBookingRepository.findById(roomBookingIdx)
+                .orElseThrow(() -> new NotFoundException(RoomBooking.class, roomBookingIdx));
     }
 
     @Transactional
-    public RoomBooking bookRoom(LocalDate bookDate, Long roomIdx, Long userIdx) {
-        Room room = roomRepository.findById(roomIdx)
-                .orElseThrow(() -> new NotFoundException(Room.class, roomIdx));
-        User user = userRepository.findById(userIdx)
-                .orElseThrow(() -> new NotFoundException(User.class, userIdx));
+    public RoomBooking addRoomBooking(RoomBooking roomBookingRequest) {
+        roomBookingRepository.findByRoomRoomIdxAndUserUserIdxAndBookDate(roomBookingRequest.getRoom().getRoomIdx(),
+                roomBookingRequest.getUser().getUserIdx(), roomBookingRequest.getBookDate())
+                .ifPresent(roomBooking -> {
+                    throw new AlreadyExistsException(RoomBooking.class, roomBookingRequest.getRoom().getRoomIdx(),
+                            roomBookingRequest.getUser().getUserIdx(), roomBookingRequest.getBookDate());
+                });
 
-        return roomBookingRepository.save(
-                RoomBooking.builder()
-                        .bookDate(bookDate)
-                        .room(room)
-                        .user(user)
-                        .build()
-        );
+        return save(roomBookingRequest);
     }
 
     @Transactional
-    public RoomBooking deleteRoomBooking(Long roomBookIdx) {
-        return roomBookingRepository.findById(roomBookIdx)
+    public RoomBooking deleteRoomBooking(Long roomBookingIdx) {
+        return roomBookingRepository.findById(roomBookingIdx)
                 .map(roomBooking -> {
                     roomBookingRepository.deleteById(roomBooking.getRoomBookIdx());
                     return roomBooking;
-                }).orElseThrow(() -> new NotFoundException(RoomBooking.class, roomBookIdx));
+                })
+                .orElseThrow(() -> new NotFoundException(RoomBooking.class, roomBookingIdx));
+    }
+
+    private RoomBooking save(RoomBooking roomBooking) {
+        return roomBookingRepository.save(roomBooking);
     }
 
 }

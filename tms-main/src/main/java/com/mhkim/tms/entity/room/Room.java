@@ -20,7 +20,7 @@ public class Room extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomIdx;
 
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String name;
 
     @Column(length = 5)

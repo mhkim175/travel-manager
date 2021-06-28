@@ -20,7 +20,7 @@ public class Bus extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long busIdx;
 
-    @Column(length = 30)
+    @Column(length = 30, unique = true)
     private String routeId;
 
     @Column(length = 10)

@@ -26,12 +26,12 @@ public class RoomBooking extends BaseTimeEntity {
     private Long roomBookIdx;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_idx")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_idx")
     private Room room;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_idx")
+    private User user;
 
     @Column(name = "book_date", nullable = false)
     private LocalDate bookDate;

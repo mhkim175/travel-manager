@@ -21,7 +21,7 @@ public class BusDto {
         @ApiModelProperty(value = "버스 ID")
         private Long busIdx;
 
-        @ApiModelProperty(value = "경로 ID")
+        @ApiModelProperty(value = "노선 ID")
         private String routeId;
 
         @ApiModelProperty(value = "등급")
@@ -60,7 +60,7 @@ public class BusDto {
     @ToString
     public static class Request {
 
-        @ApiModelProperty(value = "경로 ID", required = true)
+        @ApiModelProperty(value = "노선 ID", required = true)
         private String routeId;
 
         @ApiModelProperty(value = "등급", required = true)

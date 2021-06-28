@@ -20,7 +20,7 @@ public class Ship extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shipIdx;
 
-    @Column(length = 9)
+    @Column(length = 9, unique = true)
     private String vihicleNm;
 
     @Column(length = 100)
