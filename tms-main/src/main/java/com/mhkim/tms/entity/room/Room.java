@@ -32,6 +32,10 @@ public class Room extends BaseTimeEntity {
     @Column(length = 14)
     private String checkOut;
 
+    public Room(Long roomIdx) {
+        this.roomIdx = roomIdx;
+    }
+
     @Builder
     public Room(Long roomIdx, String name, String count, String checkIn, String checkOut) {
         this.roomIdx = roomIdx;

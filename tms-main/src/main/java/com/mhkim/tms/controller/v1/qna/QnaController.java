@@ -61,8 +61,8 @@ public class QnaController {
 
     @ApiOperation(value = "QnA 추가")
     @PostMapping
-    public ResponseEntity<QnaDto.Response> addQna(@RequestBody QnaDto.Add param) {
-        var qna = qnaService.addQna(param.getTitle(), param.getContent(), param.getUserIdx());
+    public ResponseEntity<QnaDto.Response> addQna(@RequestBody QnaDto.Request param) {
+        var qna = qnaService.addQna(param.toEntity());
         return new ResponseEntity<>(
                 new QnaDto.Response(qna),
                 HttpStatus.CREATED
@@ -71,7 +71,7 @@ public class QnaController {
 
     @ApiOperation(value = "QnA 수정")
     @PatchMapping(value = "/{qnaIdx}")
-    public ResponseEntity<QnaDto.Response> updateQna(@PathVariable Long qnaIdx, @RequestBody QnaDto.Mod param) {
+    public ResponseEntity<QnaDto.Response> updateQna(@PathVariable Long qnaIdx, @RequestBody QnaDto.Update param) {
         var qna = qnaService.updateQna(qnaIdx, param.getTitle(), param.getContent());
         return ResponseEntity.ok(
                 new QnaDto.Response(qna)

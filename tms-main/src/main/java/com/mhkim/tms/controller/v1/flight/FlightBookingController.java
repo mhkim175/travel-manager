@@ -54,7 +54,7 @@ public class FlightBookingController {
 
     @ApiOperation(value = "항공편 예약")
     @PostMapping
-    public ResponseEntity<FlightBookingDto.Response> bookFlight(@RequestBody FlightBookingDto.Book param) {
+    public ResponseEntity<FlightBookingDto.Response> bookFlight(@RequestBody FlightBookingDto.Request param) {
         FlightBooking flightBooking = flightBookingService.bookFlight(param.getBookDate(), param.getFlightSeatIdx(), param.getUserIdx());
         return new ResponseEntity<>(new FlightBookingDto.Response(flightBooking), HttpStatus.CREATED);
     }

@@ -30,6 +30,10 @@ public class FlightSeat extends BaseTimeEntity {
     @JoinColumn(name = "flight_idx")
     private Flight flight;
 
+    public FlightSeat(Long flightSeatIdx) {
+        this.flightSeatIdx = flightSeatIdx;
+    }
+
     @Builder
     public FlightSeat(Long flightSeatIdx, String seatName, String classCode, Flight flight) {
         this.flightSeatIdx = flightSeatIdx;

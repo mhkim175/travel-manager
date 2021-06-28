@@ -38,6 +38,10 @@ public class Ship extends BaseTimeEntity {
     @Column(length = 8)
     private String charge;
 
+    public Ship(Long shipIdx) {
+        this.shipIdx = shipIdx;
+    }
+
     @Builder
     public Ship(Long shipIdx, String vihicleNm, String depPlaceNm, String arrPlaceNm, String depPlandTime, String arrPlandTime, String charge) {
         this.shipIdx = shipIdx;

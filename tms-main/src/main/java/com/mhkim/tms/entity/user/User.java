@@ -37,6 +37,10 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
+    public User (Long userIdx) {
+        this.userIdx = userIdx;
+    }
+
     @Builder
     public User(Long userIdx, String email, String name, SocialType socialType, Role role) {
         checkArgument(isNotEmpty(email), "email must be provided.");

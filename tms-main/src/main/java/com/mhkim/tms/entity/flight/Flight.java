@@ -38,6 +38,10 @@ public class Flight extends BaseTimeEntity {
     @Column(length = 9)
     private String vihicleId;
 
+    public Flight(Long flightIdx) {
+        this.flightIdx = flightIdx;
+    }
+
     @Builder
     public Flight(Long flightIdx, String airlineNm, String arrAirportNm, String arrPlandTime, String depAirportNm, String depPlandTime, String vihicleId) {
         this.flightIdx = flightIdx;

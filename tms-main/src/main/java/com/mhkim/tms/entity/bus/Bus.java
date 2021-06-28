@@ -41,6 +41,10 @@ public class Bus extends BaseTimeEntity {
     @Column(length = 8)
     private String charge;
 
+    public Bus(Long busIdx) {
+        this.busIdx = busIdx;
+    }
+
     @Builder
     public Bus(Long busIdx, String routeId, String gradeNm, String depPlandTime, String arrPlandTime, String depPlaceNm, String arrPlaceNm, String charge) {
         this.busIdx = busIdx;

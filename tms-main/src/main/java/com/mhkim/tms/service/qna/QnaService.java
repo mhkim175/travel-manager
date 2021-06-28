@@ -1,9 +1,8 @@
 package com.mhkim.tms.service.qna;
 
-import com.mhkim.tms.controller.v1.qna.dto.QnaDto;
+import com.mhkim.tms.entity.qna.Qna;
 import com.mhkim.tms.entity.user.User;
 import com.mhkim.tms.exception.error.NotFoundException;
-import com.mhkim.tms.entity.qna.Qna;
 import com.mhkim.tms.repository.qna.QnaRepository;
 import com.mhkim.tms.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,17 +28,17 @@ public class QnaService {
     }
 
     @Transactional
-    public Qna addQna(String title, String content, Long userIdx) {
-        return userRepository.findById(userIdx)
+    public Qna addQna(Qna qnaRequest) {
+        return userRepository.findById(qnaRequest.getUser().getUserIdx())
                 .map(user -> {
                     Qna qna = Qna.builder()
-                            .title(title)
-                            .content(content)
+                            .title(qnaRequest.getTitle())
+                            .content(qnaRequest.getContent())
                             .user(user)
                             .build();
                     return save(qna);
                 })
-                .orElseThrow(() -> new NotFoundException(User.class, userIdx));
+                .orElseThrow(() -> new NotFoundException(User.class, qnaRequest.getUser().getUserIdx()));
     }
 
     @Transactional

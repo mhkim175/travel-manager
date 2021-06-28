@@ -115,7 +115,7 @@ public class QnaServiceTest {
         given(qnaRepository.save(any(Qna.class))).willReturn(expectedQna);
 
         // when
-        Qna qna = qnaService.addQna(expectedQna.getTitle(), expectedQna.getContent(), expectedQna.getUser().getUserIdx());
+        Qna qna = qnaService.addQna(expectedQna);
 
         // then
         assertThat(qna).isNotNull();

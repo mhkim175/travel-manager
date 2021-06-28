@@ -55,7 +55,7 @@ public class RoomBookingController {
 
     @ApiOperation(value = "숙소 예약")
     @PostMapping
-    public ResponseEntity<RoomBookingDto.Response> bookRoom(@RequestBody RoomBookingDto.Book param) {
+    public ResponseEntity<RoomBookingDto.Response> bookRoom(@RequestBody RoomBookingDto.Request param) {
         RoomBooking roomBooking = roombookingService.bookRoom(param.getBookDate(), param.getRoomIdx(), param.getUserIdx());
         return new ResponseEntity<>(new RoomBookingDto.Response(roomBooking), HttpStatus.CREATED);
     }

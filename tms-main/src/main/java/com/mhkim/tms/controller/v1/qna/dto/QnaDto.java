@@ -1,12 +1,12 @@
 package com.mhkim.tms.controller.v1.qna.dto;
 
 import com.mhkim.tms.entity.qna.Qna;
+import com.mhkim.tms.entity.user.User;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
@@ -51,7 +51,7 @@ public class QnaDto {
     @Getter
     @Setter
     @ToString
-    public static class Add {
+    public static class Request {
 
         @ApiModelProperty(value = "제목", required = true)
         private String title;
@@ -59,15 +59,23 @@ public class QnaDto {
         @ApiModelProperty(value = "내용", required = true)
         private String content;
 
-        @ApiModelProperty(value = "작성자 아이디", required = true)
+        @ApiModelProperty(value = "작성자 ID", required = true)
         private Long userIdx;
+
+        public Qna toEntity() {
+            return Qna.builder()
+                    .title(title)
+                    .content(content)
+                    .user(new User(userIdx))
+                    .build();
+        }
 
     }
 
     @Getter
     @Setter
     @ToString
-    public static class Mod {
+    public static class Update {
 
         @ApiModelProperty(value = "제목", required = true)
         private String title;
