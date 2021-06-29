@@ -1,15 +1,17 @@
 package com.mhkim.tms.service.ship;
 
-import com.mhkim.tms.controller.v1.ship.dto.ShipItemDto;
 import com.mhkim.tms.controller.v1.ship.dto.ShipItemsDto;
 import com.mhkim.tms.entity.ship.Ship;
+import com.mhkim.tms.exception.error.AlreadyExistsException;
+import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.repository.ship.ShipRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 
-import java.util.Optional;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,6 +21,35 @@ public class ShipService {
     private final ShipRepository shipRepository;
     private final ShipInfoRequestService shipInfoRequestService;
 
+    public List<Ship> getShips() {
+        return shipRepository.findAll();
+    }
+
+    public Ship getShip(Long shipIdx) {
+        return shipRepository.findById(shipIdx)
+                .orElseThrow(() -> new NotFoundException(Ship.class, shipIdx));
+    }
+
+    @Transactional
+    public Ship addShip(Ship shipRequest) {
+        shipRepository.findByVihicleNm(shipRequest.getVihicleNm())
+                .ifPresent(ship -> {
+                    throw new AlreadyExistsException(Ship.class, shipRequest.getVihicleNm());
+                });
+
+        return save(shipRequest);
+    }
+
+    @Transactional
+    public Ship deleteShip(Long shipIdx) {
+        return shipRepository.findById(shipIdx)
+                .map(ship -> {
+                    shipRepository.deleteById(ship.getShipIdx());
+                    return ship;
+                })
+                .orElseThrow(() -> new NotFoundException(Ship.class, shipIdx));
+    }
+    
     public void syncShip() {
 
         shipInfoRequestService.requestShipInfo(1).subscribe(ship -> {
@@ -33,22 +64,13 @@ public class ShipService {
 
             shipItems.subscribe(items -> items.getShipItems().forEach(item -> {
                 log.debug("item: {}", items.toString());
-                addShip(item);
+                save(item.toEntity());
             }));
         });
     }
 
-    public Optional<Ship> addShip(ShipItemDto item) {
-        Ship ship = Ship.builder()
-                .vihicleNm(item.getVihicleNm())
-                .depPlaceNm(item.getDepPlaceNm())
-                .arrPlaceNm(item.getArrPlaceNm())
-                .depPlandTime(item.getDepPlandTime())
-                .arrPlandTime(item.getArrPlandTime())
-                .charge(item.getCharge())
-                .build();
-
-        return Optional.of(shipRepository.save(ship));
+    private Ship save(Ship ship) {
+        return shipRepository.save(ship);
     }
 
 }

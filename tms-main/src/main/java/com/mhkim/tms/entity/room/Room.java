@@ -9,18 +9,18 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+@DynamicUpdate
+@Entity
 @Getter
 @NoArgsConstructor
 @ToString
-@DynamicUpdate
-@Entity
 public class Room extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomIdx;
 
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String name;
 
     @Column(length = 5)
@@ -31,6 +31,10 @@ public class Room extends BaseTimeEntity {
 
     @Column(length = 14)
     private String checkOut;
+
+    public Room(Long roomIdx) {
+        this.roomIdx = roomIdx;
+    }
 
     @Builder
     public Room(Long roomIdx, String name, String count, String checkIn, String checkOut) {

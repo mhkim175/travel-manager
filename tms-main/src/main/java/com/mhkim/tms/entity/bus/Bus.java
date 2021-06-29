@@ -9,18 +9,18 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+@DynamicUpdate
+@Entity
 @Getter
 @NoArgsConstructor
 @ToString
-@DynamicUpdate
-@Entity
 public class Bus extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long busIdx;
 
-    @Column(length = 30)
+    @Column(length = 30, unique = true)
     private String routeId;
 
     @Column(length = 10)
@@ -40,6 +40,10 @@ public class Bus extends BaseTimeEntity {
 
     @Column(length = 8)
     private String charge;
+
+    public Bus(Long busIdx) {
+        this.busIdx = busIdx;
+    }
 
     @Builder
     public Bus(Long busIdx, String routeId, String gradeNm, String depPlandTime, String arrPlandTime, String depPlaceNm, String arrPlaceNm, String charge) {

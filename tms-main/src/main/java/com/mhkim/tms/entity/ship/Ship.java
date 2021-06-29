@@ -9,18 +9,18 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+@DynamicUpdate
+@Entity
 @Getter
 @NoArgsConstructor
 @ToString
-@DynamicUpdate
-@Entity
 public class Ship extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shipIdx;
 
-    @Column(length = 9)
+    @Column(length = 9, unique = true)
     private String vihicleNm;
 
     @Column(length = 100)
@@ -37,6 +37,10 @@ public class Ship extends BaseTimeEntity {
 
     @Column(length = 8)
     private String charge;
+
+    public Ship(Long shipIdx) {
+        this.shipIdx = shipIdx;
+    }
 
     @Builder
     public Ship(Long shipIdx, String vihicleNm, String depPlaceNm, String arrPlaceNm, String depPlandTime, String arrPlandTime, String charge) {

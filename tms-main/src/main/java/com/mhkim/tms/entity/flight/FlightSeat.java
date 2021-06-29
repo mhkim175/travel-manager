@@ -9,11 +9,11 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+@DynamicUpdate
+@Entity
 @Getter
 @NoArgsConstructor
 @ToString
-@DynamicUpdate
-@Entity
 public class FlightSeat extends BaseTimeEntity {
 
     @Id
@@ -29,6 +29,10 @@ public class FlightSeat extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "flight_idx")
     private Flight flight;
+
+    public FlightSeat(Long flightSeatIdx) {
+        this.flightSeatIdx = flightSeatIdx;
+    }
 
     @Builder
     public FlightSeat(Long flightSeatIdx, String seatName, String classCode, Flight flight) {

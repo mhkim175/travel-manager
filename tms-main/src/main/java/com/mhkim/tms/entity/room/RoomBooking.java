@@ -13,12 +13,12 @@ import java.time.LocalDate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@DynamicUpdate
+@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_room_idx_book_date", columnNames = {"room_idx", "book_date"})})
+@Entity
 @Getter
 @NoArgsConstructor
 @ToString
-@DynamicUpdate
-@Entity
-@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_room_idx_book_date", columnNames = {"room_idx", "book_date"})})
 public class RoomBooking extends BaseTimeEntity {
 
     @Id
@@ -26,19 +26,18 @@ public class RoomBooking extends BaseTimeEntity {
     private Long roomBookIdx;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_idx")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_idx")
     private Room room;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_idx")
+    private User user;
 
     @Column(name = "book_date", nullable = false)
     private LocalDate bookDate;
 
     @Builder
     public RoomBooking(Long roomBookIdx, Room room, User user, LocalDate bookDate) {
-
         checkNotNull(room, "Room must be provided.");
         checkNotNull(user, "User must be provided.");
         checkNotNull(bookDate, "BookDate must be provided.");
