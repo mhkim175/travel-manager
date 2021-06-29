@@ -1,70 +1,95 @@
 package com.mhkim.tms.controller.v1.room;
 
-import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.controller.v1.room.dto.RoomBookingDto;
-import com.mhkim.tms.entity.room.RoomBooking;
 import com.mhkim.tms.service.room.RoomBookingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static java.util.stream.Collectors.toList;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-@Api(tags = {"Booking-Room"})
+@Api(tags = {"RoomBooking"})
+@RequestMapping("/api/v1/rooms/bookins")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/rooms/bookings")
 public class RoomBookingController {
 
-    private final RoomBookingService roombookingService;
+    private static final String ALL_ROOMBOOKINGS = "all-roomBookings";
 
-    @ApiOperation(value = "예약 숙소 목록 조회")
+    private static final String GET_ROOMBOOKING = "get-roomBooking";
+
+    private static final String UPDATE_ROOMBOOKING = "update-roomBooking";
+
+    private static final String DELETE_ROOMBOOKING = "delete-roomBooking";
+
+    private final RoomBookingService roomBookingService;
+
+    @ApiOperation(value = "숙박 예약 전체 조회")
     @GetMapping
-    public ResponseEntity<List<RoomBookingDto.Response>> getRoomBookingList() {
+    public ResponseEntity<CollectionModel<RoomBookingDto.Response>> getRoomBookings() {
         return ResponseEntity.ok(
-                roombookingService.getRoomBookings().stream()
-                        .map(RoomBookingDto.Response::new)
-                        .collect(toList())
+                CollectionModel.of(
+                        roomBookingService.getRoomBookings().stream()
+                                .map(roomBooking -> new RoomBookingDto.Response(roomBooking)
+                                        .add(linkTo(methodOn(RoomBookingController.class).getRoomBooking(roomBooking.getRoomBookIdx())).withSelfRel())
+                                        .add(linkTo(RoomBookingController.class).slash(roomBooking.getRoomBookIdx()).withRel(UPDATE_ROOMBOOKING))
+                                        .add(linkTo(methodOn(RoomBookingController.class).deleteRoomBooking(roomBooking.getRoomBookIdx())).withRel(DELETE_ROOMBOOKING))
+                                )
+                                .collect(toList())
+                ).add(linkTo(methodOn(RoomBookingController.class).getRoomBookings()).withSelfRel())
         );
     }
 
-    @ApiOperation(value = "예약자의 예약 숙소 목록 조회")
+    @ApiOperation(value = "예약자의 숙박 예약 목록 조회")
     @GetMapping(value = "/{userIdx}/user")
-    public ResponseEntity<List<RoomBookingDto.Response>> getRoomBookingList(@PathVariable Long userIdx) {
+    public ResponseEntity<CollectionModel<RoomBookingDto.Response>> getRoomBookingList(@PathVariable Long userIdx) {
         return ResponseEntity.ok(
-                roombookingService.getRoomBookingsByUserId(userIdx).stream()
-                        .map(RoomBookingDto.Response::new)
-                        .collect(toList())
+                CollectionModel.of(
+                        roomBookingService.getRoomBookingsByUserId(userIdx).stream()
+                                .map(roomBooking -> new RoomBookingDto.Response(roomBooking)
+                                        .add(linkTo(methodOn(RoomBookingController.class).getRoomBooking(roomBooking.getRoomBookIdx())).withSelfRel())
+                                        .add(linkTo(RoomBookingController.class).slash(roomBooking.getRoomBookIdx()).withRel(UPDATE_ROOMBOOKING))
+                                        .add(linkTo(methodOn(RoomBookingController.class).deleteRoomBooking(roomBooking.getRoomBookIdx())).withRel(DELETE_ROOMBOOKING))
+                                )
+                                .collect(toList())
+                ).add(linkTo(methodOn(RoomBookingController.class).getRoomBookings()).withSelfRel())
         );
     }
 
-    @ApiOperation(value = "예약 숙소 조회")
-    @GetMapping(value = "/{roomBookIdx}")
-    public ResponseEntity<RoomBookingDto.Response> getRoomBooking(@PathVariable("roomBookIdx") Long roomBookIdx) {
+    @ApiOperation(value = "숙박 예약 개별 조회")
+    @GetMapping(value = "/{roomBookingIdx}")
+    public ResponseEntity<RoomBookingDto.Response> getRoomBooking(@PathVariable("roomBookingIdx") Long roomBookingIdx) {
+        var roomBooking = roomBookingService.getRoomBooking(roomBookingIdx);
         return ResponseEntity.ok(
-                new RoomBookingDto.Response(
-                        roombookingService.getRoomBooking(roomBookIdx)
-                )
+                new RoomBookingDto.Response(roomBooking)
+                        .add(linkTo(methodOn(RoomBookingController.class).getRoomBooking(roomBookingIdx)).withSelfRel())
+                        .add(linkTo(RoomBookingController.class).slash(roomBookingIdx).withRel(UPDATE_ROOMBOOKING))
+                        .add(linkTo(methodOn(RoomBookingController.class).deleteRoomBooking(roomBookingIdx)).withRel(DELETE_ROOMBOOKING))
         );
     }
 
-    @ApiOperation(value = "숙소 예약")
+    @ApiOperation(value = "숙박 예약 추가")
     @PostMapping
-    public ResponseEntity<RoomBookingDto.Response> bookRoom(@RequestBody RoomBookingDto.Request param) {
-        RoomBooking roomBooking = roombookingService.addRoomBooking(param.toEntity());
-        return new ResponseEntity<>(new RoomBookingDto.Response(roomBooking), HttpStatus.CREATED);
+    public ResponseEntity<RoomBookingDto.Response> addRoomBooking(@RequestBody RoomBookingDto.Request param) {
+        var roomBooking = roomBookingService.addRoomBooking(param.toEntity());
+        return ResponseEntity.created(
+                linkTo(methodOn(RoomBookingController.class).getRoomBooking(roomBooking.getRoomBookIdx())).withSelfRel().toUri()
+        ).body(new RoomBookingDto.Response(roomBooking).add(linkTo(methodOn(RoomBookingController.class).getRoomBookings()).withRel(ALL_ROOMBOOKINGS)));
     }
 
-    @ApiOperation(value = "예약 숙소 삭제")
-    @DeleteMapping(value = "/{roomBookIdx}")
-    public ResponseEntity<RoomBookingDto.Response> deleteQna(@PathVariable("roomBookIdx") Long roomBookIdx) {
-        RoomBooking roomBooking = roombookingService.deleteRoomBooking(roomBookIdx);
-        return ResponseEntity.ok(new RoomBookingDto.Response(roomBooking));
+    @ApiOperation(value = "숙박 예약 삭제")
+    @DeleteMapping(value = "/{roomBookingIdx}")
+    public ResponseEntity<RoomBookingDto.Response> deleteRoomBooking(@PathVariable Long roomBookingIdx) {
+        var roomBooking = roomBookingService.deleteRoomBooking(roomBookingIdx);
+        return ResponseEntity.ok(
+                new RoomBookingDto.Response(roomBooking)
+                        .add(linkTo(methodOn(RoomBookingController.class).getRoomBookings()).withSelfRel())
+        );
     }
 
 }

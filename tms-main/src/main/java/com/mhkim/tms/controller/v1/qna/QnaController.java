@@ -15,9 +15,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Api(tags = {"QnA"})
+@RequestMapping("/api/v1/qnas")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/qnas")
 public class QnaController {
 
     private static final String ALL_QNAS = "all-qnas";
@@ -42,8 +42,7 @@ public class QnaController {
                                         .add(linkTo(methodOn(QnaController.class).deleteQna(qna.getQnaIdx())).withRel(DELETE_QNA))
                                 )
                                 .collect(toList())
-                )
-                .add(linkTo(methodOn(QnaController.class).getQnas()).withSelfRel())
+                ).add(linkTo(methodOn(QnaController.class).getQnas()).withSelfRel())
         );
     }
 
@@ -63,10 +62,9 @@ public class QnaController {
     @PostMapping
     public ResponseEntity<QnaDto.Response> addQna(@RequestBody QnaDto.Request param) {
         var qna = qnaService.addQna(param.toEntity());
-        return new ResponseEntity<>(
-                new QnaDto.Response(qna),
-                HttpStatus.CREATED
-        );
+        return ResponseEntity.created(
+                linkTo(methodOn(QnaController.class).getQna(qna.getQnaIdx())).withSelfRel().toUri()
+        ).body(new QnaDto.Response(qna).add(linkTo(methodOn(QnaController.class).getQnas()).withRel(ALL_QNAS)));
     }
 
     @ApiOperation(value = "QnA 수정")
