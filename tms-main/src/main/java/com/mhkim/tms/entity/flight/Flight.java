@@ -20,6 +20,9 @@ public class Flight extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long flightIdx;
 
+    @Column(length = 9, unique = true)
+    private String vihicleId;
+
     @Column(length = 100)
     private String airlineNm;
 
@@ -35,22 +38,19 @@ public class Flight extends BaseTimeEntity {
     @Column(length = 14)
     private String depPlandTime;
 
-    @Column(length = 9)
-    private String vihicleId;
-
     public Flight(Long flightIdx) {
         this.flightIdx = flightIdx;
     }
 
     @Builder
-    public Flight(Long flightIdx, String airlineNm, String arrAirportNm, String arrPlandTime, String depAirportNm, String depPlandTime, String vihicleId) {
+    public Flight(Long flightIdx, String vihicleId, String airlineNm, String arrAirportNm, String arrPlandTime, String depAirportNm, String depPlandTime) {
         this.flightIdx = flightIdx;
+        this.vihicleId = vihicleId;
         this.airlineNm = airlineNm;
         this.arrAirportNm = arrAirportNm;
         this.arrAirportNm = arrPlandTime;
         this.depAirportNm = depAirportNm;
         this.depPlandTime = depPlandTime;
-        this.vihicleId = vihicleId;
     }
 
 }

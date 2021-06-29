@@ -22,6 +22,10 @@ public class ShipBookingService {
         return shipBookingRepository.findAll();
     }
 
+    public List<ShipBooking> getShipBookingsByUserId(Long userIdx) {
+        return shipBookingRepository.findAllByUserUserIdx(userIdx);
+    }
+
     public ShipBooking getShipBooking(Long shipBookingIdx) {
         return shipBookingRepository.findById(shipBookingIdx)
                 .orElseThrow(() -> new NotFoundException(ShipBooking.class, shipBookingIdx));

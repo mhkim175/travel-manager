@@ -15,7 +15,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@Api(tags = {"2. Booking-Room"})
+@Api(tags = {"Booking-Room"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/rooms/bookings")
@@ -27,7 +27,7 @@ public class RoomBookingController {
     @GetMapping
     public ResponseEntity<List<RoomBookingDto.Response>> getRoomBookingList() {
         return ResponseEntity.ok(
-                roombookingService.getRoomBookingList().stream()
+                roombookingService.getRoomBookings().stream()
                         .map(RoomBookingDto.Response::new)
                         .collect(toList())
         );
@@ -37,7 +37,7 @@ public class RoomBookingController {
     @GetMapping(value = "/{userIdx}/user")
     public ResponseEntity<List<RoomBookingDto.Response>> getRoomBookingList(@PathVariable Long userIdx) {
         return ResponseEntity.ok(
-                roombookingService.getRoomBookingByUserId(userIdx).stream()
+                roombookingService.getRoomBookingsByUserId(userIdx).stream()
                         .map(RoomBookingDto.Response::new)
                         .collect(toList())
         );
@@ -56,7 +56,7 @@ public class RoomBookingController {
     @ApiOperation(value = "숙소 예약")
     @PostMapping
     public ResponseEntity<RoomBookingDto.Response> bookRoom(@RequestBody RoomBookingDto.Request param) {
-        RoomBooking roomBooking = roombookingService.bookRoom(param.getBookDate(), param.getRoomIdx(), param.getUserIdx());
+        RoomBooking roomBooking = roombookingService.addRoomBooking(param.toEntity());
         return new ResponseEntity<>(new RoomBookingDto.Response(roomBooking), HttpStatus.CREATED);
     }
 

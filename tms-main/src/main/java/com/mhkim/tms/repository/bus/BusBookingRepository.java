@@ -1,9 +1,6 @@
 package com.mhkim.tms.repository.bus;
 
-import com.mhkim.tms.entity.bus.Bus;
 import com.mhkim.tms.entity.bus.BusBooking;
-import com.mhkim.tms.entity.flight.FlightBooking;
-import com.mhkim.tms.entity.room.RoomBooking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

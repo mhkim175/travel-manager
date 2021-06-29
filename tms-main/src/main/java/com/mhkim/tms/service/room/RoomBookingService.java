@@ -4,8 +4,6 @@ import com.mhkim.tms.entity.room.RoomBooking;
 import com.mhkim.tms.exception.error.AlreadyExistsException;
 import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.repository.room.RoomBookingRepository;
-import com.mhkim.tms.repository.room.RoomRepository;
-import com.mhkim.tms.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +15,13 @@ import java.util.List;
 public class RoomBookingService {
 
     private final RoomBookingRepository roomBookingRepository;
-    private final RoomRepository roomRepository;
-    private final UserRepository userRepository;
 
     public List<RoomBooking> getRoomBookings() {
         return roomBookingRepository.findAll();
+    }
+
+    public List<RoomBooking> getRoomBookingsByUserId(Long userIdx) {
+        return roomBookingRepository.findAllByUserUserIdx(userIdx);
     }
 
     public RoomBooking getRoomBooking(Long roomBookingIdx) {

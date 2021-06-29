@@ -22,6 +22,10 @@ public class BusBookingService {
         return busBookingRepository.findAll();
     }
 
+    public List<BusBooking> getBusBookingsByUserId(Long userIdx) {
+        return busBookingRepository.findAllByUserUserIdx(userIdx);
+    }
+
     public BusBooking getBusBooking(Long busBookingIdx) {
         return busBookingRepository.findById(busBookingIdx)
                 .orElseThrow(() -> new NotFoundException(BusBooking.class, busBookingIdx));

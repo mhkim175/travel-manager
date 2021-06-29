@@ -1,6 +1,5 @@
 package com.mhkim.tms.controller.v1.flight;
 
-import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.controller.v1.flight.dto.FlightBookingDto;
 import com.mhkim.tms.entity.flight.FlightBooking;
 import com.mhkim.tms.service.flight.FlightBookingService;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@Api(tags = {"4. Booking-Flight"})
+@Api(tags = {"Booking-Flight"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/flights/bookings")
@@ -26,7 +25,7 @@ public class FlightBookingController {
     @ApiOperation(value = "예약 항공편 전체 조회")
     public ResponseEntity<List<FlightBookingDto.Response>> getFlightBookingList() {
         return ResponseEntity.ok(
-                flightBookingService.getFlightBookingList().stream()
+                flightBookingService.getFlightBookings().stream()
                         .map(FlightBookingDto.Response::new)
                         .collect(toList())
         );
@@ -36,7 +35,7 @@ public class FlightBookingController {
     @GetMapping(value = "/{userIdx}/user")
     public ResponseEntity<List<FlightBookingDto.Response>> getFlightBookingList(@PathVariable Long userIdx) {
         return ResponseEntity.ok(
-                flightBookingService.getFlightBookingByUserId(userIdx).stream()
+                flightBookingService.getFlightBookingsByUserId(userIdx).stream()
                         .map(FlightBookingDto.Response::new)
                         .collect(toList())
         );
@@ -55,7 +54,7 @@ public class FlightBookingController {
     @ApiOperation(value = "항공편 예약")
     @PostMapping
     public ResponseEntity<FlightBookingDto.Response> bookFlight(@RequestBody FlightBookingDto.Request param) {
-        FlightBooking flightBooking = flightBookingService.bookFlight(param.getBookDate(), param.getFlightSeatIdx(), param.getUserIdx());
+        FlightBooking flightBooking = flightBookingService.addFlightBooking(param.toEntity());
         return new ResponseEntity<>(new FlightBookingDto.Response(flightBooking), HttpStatus.CREATED);
     }
 

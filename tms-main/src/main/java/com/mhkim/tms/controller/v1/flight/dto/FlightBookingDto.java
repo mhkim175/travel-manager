@@ -66,12 +66,12 @@ public class FlightBookingDto {
             this.flightBookIdx = flightBooking.getFlightBookIdx();
             this.flightIdx = flightBooking.getFlightSeat().getFlight().getFlightIdx();
             this.flightSeatIdx = flightBooking.getFlightSeat().getFlightSeatIdx();
+            this.vihicleId = flightBooking.getFlightSeat().getFlight().getVihicleId();
             this.airlineNm = flightBooking.getFlightSeat().getFlight().getAirlineNm();
             this.arrAirportNm = flightBooking.getFlightSeat().getFlight().getArrAirportNm();
             this.arrPlandTime = flightBooking.getFlightSeat().getFlight().getArrPlandTime();
             this.depAirportNm = flightBooking.getFlightSeat().getFlight().getDepAirportNm();
             this.depPlandTime = flightBooking.getFlightSeat().getFlight().getDepPlandTime();
-            this.vihicleId = flightBooking.getFlightSeat().getFlight().getVihicleId();
             this.userIdx = flightBooking.getUser().getUserIdx();
             this.email = flightBooking.getUser().getEmail();
             this.name = flightBooking.getUser().getName();
