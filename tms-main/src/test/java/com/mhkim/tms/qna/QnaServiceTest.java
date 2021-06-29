@@ -1,20 +1,15 @@
 package com.mhkim.tms.qna;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
-
 import com.mhkim.tms.entity.qna.Qna;
+import com.mhkim.tms.entity.user.User;
 import com.mhkim.tms.exception.error.NotFoundException;
 import com.mhkim.tms.repository.qna.QnaRepository;
 import com.mhkim.tms.service.qna.QnaService;
-import com.mhkim.tms.entity.user.User;
 import com.mhkim.tms.util.MessageUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -23,6 +18,12 @@ import org.springframework.context.support.MessageSourceAccessor;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
@@ -46,14 +47,14 @@ public class QnaServiceTest {
 
         expectedUser = User.builder()
                 .userIdx(1L)
-                .email("user1111@test.com")
-                .name("user1111")
+                .email("user001@test.com")
+                .name("user001")
                 .build();
 
         expectedQna = Qna.builder()
                 .qnaIdx(1L)
-                .title("제목11")
-                .content("내용내용1111")
+                .title("제목001")
+                .content("내용001")
                 .user(expectedUser)
                 .build();
     }
@@ -131,8 +132,8 @@ public class QnaServiceTest {
     @Test
     void updateQnaSuccess() {
         // given
-        String title = "제목수정1111";
-        String content = "내용수정1111";
+        String title = "제목002";
+        String content = "내용002";
         given(qnaRepository.findById(anyLong())).willReturn(Optional.of(expectedQna));
 
         // when
@@ -152,8 +153,8 @@ public class QnaServiceTest {
     @Test
     void updateQnaFail() {
         // given
-        String title = "제목수정1111";
-        String content = "내용수정1111";
+        String title = "제목002";
+        String content = "내용002";
         given(qnaRepository.findById(anyLong())).willReturn(Optional.of(null));
 
         // then
